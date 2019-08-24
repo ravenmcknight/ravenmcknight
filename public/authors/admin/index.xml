@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Raven McKnight</title>
+    <link>https://ravenmcknight.com/authors/admin/</link>
+    <description>Recent content on Raven McKnight</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Raven McKnight</copyright>
+    
+	    <atom:link href="https://ravenmcknight.com/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://ravenmcknight.com/authors/admin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/authors/admin/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m a senior at &lt;a href=&#34;https://www.macalester.edu/&#34; target=&#34;_blank&#34;&gt;Macalester College&lt;/a&gt; studying statistics with minors in geography and creative writing. Right now, I&amp;rsquo;m excited about spatial data, public transit, and creating reproducible research and &lt;a href=&#34;https://www.r-project.org/&#34; target=&#34;_blank&#34;&gt;R&lt;/a&gt; resources. This year, I&amp;rsquo;m working at &lt;a href=&#34;https://www.metrotransit.org/home&#34; target=&#34;_blank&#34;&gt;Metro Transit&lt;/a&gt; as a data science intern. I love being in the public sector doing work that benefits my community!&lt;/p&gt;
+
+&lt;p&gt;Over the summer, I&amp;rsquo;ve been studying for the GRE and preparing for the honors thesis I&amp;rsquo;ll be completing this year. I&amp;rsquo;ve learned a lot about transit and mobility and I&amp;rsquo;m excited to apply what I&amp;rsquo;ve learned to work I&amp;rsquo;ve already started on spatial accessibility. Aside from statistics, I love running, poetry, &lt;a href=&#34;https://www.goodreads.com/review/list/5717830-raven-mcknight?shelf=read&#34; target=&#34;_blank&#34;&gt;reading&lt;/a&gt;, and rock climbing!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
