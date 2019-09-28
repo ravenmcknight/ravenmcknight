@@ -1,0 +1,349 @@
+---
+title: "Spatial Bayesian Models of Contraceptive Deserts"
+author: "Raven McKnight"
+date: "5/10/2019"
+description: Using spatial Bayesian methods to model access to birth control.
+image: img/portfolio/nc_boundaries_thick.png
+bibliography: Library.bib
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+Spatial data violates one of the most basic assumptions in statistics: that our observations are independent of one another. This means that many of our familiar methods -- Bayesian and frequentist! -- aren't useful in modelling spatial data. In this series of blog posts, Katie Jolly, Son Phan, and I will explore Bayesian methods to describe variation across space. 
+
+### Case study: Contracpetive Deserts
+
+Birth control is a critical aspect of basic health care. Accessible contraceptive services reduce unplanned pregnancies, lower abortion rates, and empower women to navigate the world and their health more freely. Over 20 million women in the United States are in need of publicly-funded birth control and over 1 million of them live in a county without a single provider. 
+
+This project was initially inspired by a map from [Power to Decide](https://powertodecide.org/what-we-do/access/access-birth-control). They define a *contraceptive desert* as an area where a single birth control provider must serve 1000 or more women in need. In this project, I model the ratio of *women in need of publicly funded services* per *clinic providing publicly funded services*. This is a naive metric, but I think an intuitive one in beginning to understand birth control accessibility. Admittedly, access is more nuanced than the simple presence of clinics. There are many other factors to consider: physical accessibility, stigma, under-education, or any other number of personal characteristics. Developing a better metric for accessibility is an exciting area for future work!
+
+#### The data
+For this project, I use data on birth control patients and providers from the Guttmacher Institute, demographics from the American Community Survey, and TIGER/Line shapefiles for state and county boundaries. We can read the cleaned birth control and demographic data from [my Github](https://github.com/ravenmcknight). 
+
+```{r}
+library(readr)
+
+file <- "https://raw.github.com/ravenmcknight/contraceptive-deserts/master/contraceptive_deserts_may10"   # url for csv 
+bc <- read_csv(file)
+```
+
+Now we have data for (almost) every county in the United States! I'll focus on the following variables: 
+
+| **variable**                        | **meaning**                                                                                                               |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| WomenPerClinic                      | Women in need of publicly funded services/publicly funded clinics, Guttmacher 2015                                        |
+| MedianInc                           | Median county income, ACS 2015                                                                                            |
+| PercHSGrad                          | Percent of county with high school diploma or equivalent, ACS 2015                                                        |
+| PercPoverty                         | Percent of county living below poverty line, ACS 2015                                                                     |
+| PercWhite, PercBlack ....           | Seven variables recording racial demographics of each county, ACS 2015                                                    |
+| PercRural                           | Percent of population living in rural area, ACS 2015                                                                      |
+
+
+
+Because we have so much data, I'll also filter to get *just* counties in my home state, North Carolina. This will speed up our models and make visualization much easier!
+
+```{r}
+library(tidyverse)
+
+nc <- bc %>%
+  filter(State=="NorthCarolina")
+```
+
+If we want to visualize this data, we can join it to county shapefiles from the US Census. If you don't have it already, install the `tigris` package to get shapefiles without dealing with the census website. I'll also load the rest of the spatial packages we'll need here. One thing we need to be aware of when working with spatial data is the difference between `sp` and `sf` objects. They are not entirely interchangeable, so I'll name my spatial objects with "sp" of "sf" at the end to keep them straight!
+
+```{r results="hide"}
+library(tigris)
+library(sp)
+library(sf)
+library(spdep)
+library(ape)
+
+nc_counties_sp <- counties(state="NC", cb=TRUE)   # cb = TRUE gives smaller files when possible to speed up mapping
+
+nc_counties_sf <- st_as_sf(nc_counties_sp)
+
+nc <- nc %>%
+  mutate(GEOID = as.character(fips))  # Create a field to join on 
+
+nc_sf <- full_join(nc_counties_sf, nc, by="GEOID")  # Join!
+
+nc_sp <- as(nc_sf, "Spatial")  # Go ahead and make an sp for later
+```
+
+Now, we can start mapping! Let's look at the number of women per clinic across counties in North Carolina. 
+
+```{r}
+# library(extrafont) # totally optional step to change default ggplot font!
+
+# I can also save my ggplot themes to use throughout!
+
+project_theme_map <- theme(text = element_text(family = "Oswald Light"), panel.grid.major = element_line("transparent"), axis.text=element_blank(), legend.direction="horizontal", legend.position="bottom", plot.title = element_text(hjust = 0.5), legend.key.width=unit(.8, "cm"))  
+
+project_theme_plot <- theme(text = element_text(family = "Oswald Light"), legend.direction="horizontal", legend.position="bottom", plot.title = element_text(hjust = 0.5), legend.key.width=unit(.8, "cm"))  
+
+project_colors <- scale_fill_gradient(low="#92b6b1", high="#666a86", na.value="#C0C0C0", guide="colorbar")
+
+ggplot() +
+  geom_sf(data=nc_sf, aes(fill=WomenPerClinic), color=NA) +
+  labs(title = "Accessibility in North Carolina") +
+  guides(fill=guide_colorbar(title="Women Per Clinic")) + 
+  theme_minimal() +
+  project_colors +
+  project_theme_map
+```
+
+With this map, we can start to identify counties with particularly high patient-to-clinic ratios. My goal in this project is to use spatial Bayesian models to identify clusters of limited access to birth control. 
+
+#### Spatial autocorrelation?
+
+Before we go on with spatial modeling, we should confirm that our data isn't spatially random. If it *is*, then we don't need to use spatial methods. We can check for spatial autocorrelation using Moran's I. If Moran's I is close to 1, we have positive spatial autocorrelation and if it's close to -1, we have negative autocorrelation. 
+
+![](/portfolio/contraceptive-deserts-bayes_files/spat_cor.png)
+
+
+
+We can check if our data is spatially random by randomly assigning values to each county in North Carolina 10000 times and taking the Moran's I of each simulation. Then, we compare our *real* data to the simulated data. If our data is "less random" than any of our simulations, we can feel confident that we need to use spatial methods. 
+
+
+```{r}
+set.seed(454)
+nc_nb <- poly2nb(nc_sf)   
+nc_w <- nb2listw(nc_nb, style="B")
+
+moran.mc(na.omit(nc_sp$WomenPerClinic), nc_w, nsim = 9999) # markov chain simulations
+```
+
+This test tells us that our real data is not *the least* random, but it is less random than about 98% of the simulations with slight positive spatial autocorrelation. My guess is that we would see stronger spatial autocorrelation if we looked at the entire country, or at North Carolina by census tract. Either way, Moran's I confirms that we should be using spatial methods!
+
+
+#### CAR Models 
+
+To handle spatial autocorrelation in our data, we'll fit Conditional Autoregressive (CAR) models using the `CARBayes` package. CAR models are often used to model areal data such as disease risk in epidemiology, ecologocial phenomena, or housing prices. They are most often fit in Bayesian contexts using random effects to model spatial autocorrelation. Hierarchical Bayesian models are particularly helfpul in dealing with the structure of spatial data. I'll fit two types of CAR models below -- one which assumes a global level of smoothness in spatial autocorrelation and one which seeks to identify boundaries or breaks in the response surface. For more on implementing CAR models with CARBayes, check out Katie and I's [tutorial](https://www.ravenmcknight.com/portfolio/CARBayes-tutorial)!
+
+
+#### A Familiar Model & Variable Selection
+
+Before trying to identify clusters of limited access, I decided to fit a model with more familiar interpretations. By fitting the CAR model proposed in 2000 by Leroux, we can get coefficients on each of our predictors to get a sense of how they are related to access. First, we can check out the distribution of our predictors and their relationship with women per clinic. 
+
+```{r}
+predictors <- na.omit(as.data.frame(nc)) %>%
+  dplyr::select(WomenPerClinic, MedianInc, PercHSGrad, PercPoverty, PercWhite, PercRural)
+
+titles <- c(
+                    `MedianInc` = "Median Income",
+                    `PercHSGrad` = "Percent High School Graduates", 
+                    `PercPoverty` = "Percent in Poverty", 
+                    `PercRural` = "Percent Rural", 
+                    `PercWhite` = "Percent White",
+                    `WomenPerClinic` = "Women Per Clinic"
+                    )
+
+predictors %>%
+  gather(key="var", value = "value") %>%
+  ggplot(aes(x=value)) + 
+    geom_density(fill="#788aa3", color="#788aa3") +
+    facet_wrap(~var, scales= "free", labeller = as_labeller(titles)) +
+    theme_minimal() +
+    project_theme_plot
+
+predictors %>%
+  gather(-WomenPerClinic, key = "var", value = "value") %>%
+  ggplot(aes(x = value, y = WomenPerClinic)) +
+    geom_point(color="#b2c9ab") +
+    facet_wrap(~ var, scales = "free", labeller = as_labeller(titles)) +
+    theme_minimal() +
+    project_theme_plot 
+```
+
+To better understand these relationships, I'll fit a Leroux model using four of these predictors so we can see which are most "important." For more on models like this, you can check out [Katie's case study](https://www.katiejolly.io/spatial-bayesian-project/?fbclid=IwAR0HNqJHMVZmKKpJ9EpDh4i7NXckkt7AgpWO8Htt-3fUZ_nfhHq4hXFR6qw). She fits Besag models which are the precursor to Leroux! The Leroux model is essentially an extension of the Besag model -- it's main advantage is that it handles *overdispersion* with a specific parameter. Overdispersion occurs when there is more variability in the data than we expect for a given model or data structure. This can occur fairly frequently with "real-world" spatial data, so Leroux offers an advantage in many cases. The formal model statement is below, but the details aren't too important for our purposes. The main takeaways about Leroux are that 1) it enforces global smoothness and 2) it models spatial autocorrelation with a single set of random effects. 
+
+![](/portfolio/contraceptive-deserts-bayes_files/lerouxstatement.png)
+
+
+We'll need the CARBayes package to implement our CAR models. This package includes several primary functions, each of which corresponds to a different model with different priors and model structures. For more technical explanation of the entire package, check out the [vignette](https://cran.r-project.org/web/packages/CARBayes/vignettes/CARBayes.pdf). 
+
+The last thing we need to start fitting models is a *neighborhood structure*. This model uses a queen neighborhood structure. This means that any two counties that share a single point of contact are considered neighbors. We represent the neighborhood structure using binary matrix W, which has entries equal to 1 for polygons that are neighbors and 0 for polygons that are not. 
+
+![](/portfolio/contraceptive-deserts-bayes_files/neighborhoods.png)
+
+I decided to leave out percent rural as a predictor because some very rural counties have so few women they can't count as a desert by our metric! This was throwing off the rest of the coefficients; it's more informative to look at this model with fewer predictors. I'm also taking fewer Markov Chain Monte Carlo simulations than I would ideally because these models are computationally expensive and can take a long time to run.  
+
+```{r results = "hide", message=FALSE, warning=FALSE}
+library(CARBayes)
+
+formula <- WomenPerClinic ~ MedianInc + PercHSGrad + PercPoverty + PercWhite   # Our model formula
+
+nc_sp_mod <- nc_sp[which(!is.na(nc_sp$WomenPerClinic)), ] # remove county with na values
+nc_sp_mod <- nc_sp[which(!is.na(nc_sp$PercWhite)), ] # and missing demographic data
+```
+
+```{r results = "hide"}
+W.nb <- poly2nb(nc_sp_mod, row.names=rownames(nc_sp_mod), queen=TRUE)   # Create neighborhood matrix
+W.list <- nb2listw(W.nb, style="B")
+W <- nb2mat(W.nb, style="B") 
+
+nc_leroux <- S.CARleroux(formula=formula, data=nc_sp_mod, family="gaussian", W=W, burnin=10000, n.sample=30000, thin=20)
+```
+
+```{r}
+print(nc_leroux)
+```
+
+The good news: we have coefficients! The bad news: the 95% coverage intervals for percent in poverty and percent white cross zero, meaning we can't be too confident about their relationship with women per clinic. Putting that aside for a moment, our intuitive takeways are: 
+
+* Median income and percent high school graduates are positively correlated with women per clinic, likely because education and income tend to be concentrated in more populous, urban areas
+* Poverty is positively correlated with women per clinic
+* Higher percentages of white residents are *negatively* correlated with women per clinic -- ie, white areas have better access to birth control. This is a result I expected to see! 
+
+With all of this in mind, we're ready to start identifying clusters! Moving forward, I'll use **percent high school graduate** & **median income** as my predictors. 
+
+#### Boundary Detection 
+
+To answer my initial question -- can we identify clusters of limited access to birth control -- I'll use the boundary detection CAR model proposed by Lee and Mitchell in 2012. This model uses a *dissimilarity metric* to identify spatial breaks in our data. 
+
+Generally, CAR models such as BYM or Leroux force a single global level of spatial autocorrelation. The assumption of smoothness is often broken by real-world data which can exhibit local autocorrelation, or clustering. The Lee and Mitchell model I'll fit here deals with local autocorrelation in two ways: first, it allows us to specify covariates as above in the Leroux model. Second, it uses random effects to model local autocorrelation even in the case of unmeasured confounding when we don't know which covariates are causing the variation.
+
+Like the globally-smooth models above, Lee & Mitchell use a neighborhood matrix W. In the Leroux model we fit, W is binary and values are assumed to be fixed at either 0 or 1. The Lee & Mitchell prior attempts to model the values in W as if they were random quantities rather than fixed. It models each entry in W as the *dissimilarity* between polygons. The model takes q non-negative dissimilarity metrics z. These metrics are our covariates -- they can be physical characteristics of the polygons (such as proportion of land covered by water) or demographics (such as percent high school grad or median income!). The formal model statement is below. More details can be found in the [vignette](https://cran.r-project.org/web/packages/CARBayes/vignettes/CARBayes.pdf) or the [original paper](https://academic.oup.com/biostatistics/article/13/3/415/248273). Note there is also a non-binary option which can be specified by setting `W.binary = FALSE` below. 
+
+![](/portfolio/contraceptive-deserts-bayes_files/leemitchellstatement.png)
+
+
+Without getting too bogged down in the details, this model essentially says that the entries in neighborhood matrix W are 1 if a dissimilarity metric z is different enough in areal units k and j. The priors are given uniform distributions with varying maxiumum values to ensure priors are vague. 
+```{r include = FALSE}
+# once mathjax is working, update with proper notation/not just a screenshot
+```
+
+To fit the Lee & Mitchell model, we'll use the same W matrix from above. We also need to prepare each of our covariates as matrices to work in the model. 
+
+```{r}
+inc <- nc_sp_mod$MedianInc
+grad <- nc_sp_mod$PercHSGrad
+
+Z.inc <- as.matrix(dist(inc, diag=TRUE, upper=TRUE))
+Z.grad <- as.matrix(dist(grad, diag=TRUE, upper=TRUE))
+```
+
+Now, we're ready to fit!
+
+```{r results= "hide"}
+formula <- WomenPerClinic ~ 1
+
+nc_dissimilarity <- S.CARdissimilarity(formula=formula, data=nc_sp_mod, family="gaussian", W=W, Z=list(Z.inc=Z.inc, Z.grad=Z.grad), W.binary=TRUE, burnin=10000, n.sample=30000, thin=20)
+```
+
+```{r}
+print(nc_dissimilarity)
+```
+
+
+Our intuitive takeaways from this output: 
+
+* The average number of women per clinic is about 1700
+* Income and high school graduates are both correlated with slightly higher values of women per clinic
+* `alpha.min` is the threshold for the dissimilarity metrics, ie a value higher than `alpha.min` will trigger boundary identification. The `alpha.min` values here tell us that percent high school grad is slightly more important than median income, though the median income value is likely so low because median income has much higher values than percent high school grad. 
+* Because our coverage intervals are greater than or equal to the `alpha.min` values, we know that both of our covariates helped identify some boundaries
+* We identified 111 step changes, or breaks between adjacent counties
+
+And a fun fact: the process of boundary identification is often called *Wombling*!
+
+
+Now, we can use the model output to visualize the boundaries!
+```{r}
+nc_boundaries <- nc_dissimilarity$localised.structure$W.posterior
+nc_boundaries_sp <- highlight.borders(border.locations=nc_boundaries, spdata=nc_sp_mod)
+
+nc_boundaries_sf <- st_as_sf(nc_boundaries_sp)  # for mapping!
+
+st_crs(nc_boundaries_sf) <- st_crs(nc_sf)  # set same coordinate system
+
+ggplot() +
+  geom_sf(data=nc_sf, aes(fill=WomenPerClinic), color=NA) +
+  geom_sf(data=nc_boundaries_sf, color="white", shape=46) +
+  labs(title = "Identified Boundaries in North Carolina") +
+  guides(fill=guide_colorbar(title="Women Per Clinic")) + 
+  theme_minimal() +
+  project_colors +
+  project_theme_map
+```
+
+
+I'm very happy with these results! We can see that Wake County, where Raleigh is, is almost entirely enclosed. This makes sense as it's the most urban county in the area -- we should expect health care services to be different in a metropolitan area than elsewhere. Similar boundaries have been located around Guilford County, home to another metro area (Winston-Salem), and in Western North Carolina (where I'm from!).
+
+#### Bonus: Interactive Results!
+Just for fun, we can also visualize these results interactively using leaflet!
+
+```{r include = FALSE}
+# get code folding file from Son
+```
+
+
+```{r}
+library(leaflet)
+colours <- colorNumeric(palette = c("#92b6b1", "#666a86"), domain = nc_sp$WomenPerClinic)
+
+labels <- sprintf(
+  "<strong>%s County </strong><br/>%g Women per clinic <br/> $%g Median income <br/> %g Percent in poverty <br/> %g Percent high school graduates <br/> %g Percent white",
+  nc_sp$NAME, nc_sp$WomenPerClinic, nc_sp$MedianInc, (nc_sp$PercPoverty)*100, nc_sp$PercHSGrad, nc_sp$PercWhite
+) %>% lapply(htmltools::HTML)
+
+
+
+results_map <- leaflet(data=nc_sp) %>%
+addTiles(group= "Basemap") %>%
+  
+addPolygons(fillColor = ~colours(WomenPerClinic), 
+            color="white", 
+            weight=1,
+            fillOpacity = .9, 
+            group= "Access", 
+            highlight = highlightOptions(
+               bringToFront = FALSE),
+            label = labels,
+            labelOptions = labelOptions(
+                style = list("font-weight" = "normal", padding = "3px 8px"),
+                textsize = "15px")) %>%
+  
+addLegend("bottomright",
+          pal = colours, 
+          values = nc_sp$WomenPerClinic, 
+          opacity = 1,
+          title="Women Per Clinic") %>%
+  
+addCircles(lng = ~nc_boundaries_sp$X, 
+           lat = ~nc_boundaries_sp$Y, 
+           color="white", 
+           weight = 2,
+           radius = 3, 
+           group = "Boundaries") %>%
+  
+addScaleBar(position="bottomleft") %>%
+  
+addLayersControl(
+  baseGroups = c("Access"), 
+  overlayGroups = c("Basemap", "Boundaries"),
+  options = layersControlOptions(collapsed=FALSE)
+)
+
+results_map
+```
+
+
+### Conclusions
+
+CARBayes gives us some great tools to start modelling accessibility! We were able to identify some potential covariates and start locating boundaries between clusters! One major limitation of this implementation is that the model locates boundaries as points rather than lines or polygons which makes it difficult to identify closed clusters. There is no simple way to extract the identified clusters, so our analysis sort of ends with visualization. This works well for a single state but would be overwhelming, I think, on the entire country. 
+
+There is a lot of exciting future work for this project. There are many other CAR prior we could apply, and dozens of covariates we haven't considered yet! As I mentioned in the beginning of this post, the accessibility metric we're using is very simple. A more thorough metric could give us a very different picture of accessibility!
+
+For more case studies, check out [Son's post on public transit](https://sonphan.netlify.com/post/transit-bayes/) or [Katie's post on vaccination in California](https://www.katiejolly.io/spatial-bayesian-project/?fbclid=IwAR0HNqJHMVZmKKpJ9EpDh4i7NXckkt7AgpWO8Htt-3fUZ_nfhHq4hXFR6qw)!
+
+
+### References
+Besag J, York J, Mollie A (1991). “Bayesian Image Restoration with Two Applications in Spatial Statistics.” Annals of the Institute of Statistics and Mathematics, 43, 1–59.
+
+Lee, D. (2013). CARBayes: an R package for Bayesian spatial modeling with conditional autoregressive priors. Journal of Statistical Software, 55(13), 1-24.
+
+Lee D, Mitchell R (2012). “Boundary Detection in Disease Mapping Studies.” Biostatistics, 13, 415–426.
+
+Leroux B, Lei X, Breslow N (2000). “Estimation of Disease Rates in Small Areas: A New Mixed Model for Spatial Dependence.” In M Halloran, D Berry (eds.), Statistical Models in Epidemiology, the Environment and Clinical Trials, pp. 179–191. Springer-Verlag, New York.

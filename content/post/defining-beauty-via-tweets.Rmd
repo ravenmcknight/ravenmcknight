@@ -1,0 +1,25 @@
+---
+title: "Defining ‘Beauty’ via Tweets"
+author: "Raven McKnight"
+date: "8/13/2019"
+output: html_document
+---
+
+My second year of college, I took an English class called "On Beauty." We read [a lot of great books](https://www.goodreads.com/review/list/5717830-raven-mcknight?shelf=on-beauty) and the class culminated in an open-ended final project about beauty. Fresh out of my introduction to computer science class, I decided I wanted to code something. I was inspired by the idea that beauty could come from unexpeced places in unexpected forms. Like coding! 
+
+With my limited understanding of Python, I set out create a site that would scrape recent Tweets containing the word 'beauty' and display them on a simple screen. I wanted a black screen that said "beauty is" with keywords from recent tweets scrolling past to complete the sentence. I *sort of* acheived this. I got a single batch of tweets from the Twitter API and clumsily filtered down to keywords. Unfortunately, I did this project about a week after Rihanna launched Fenty Beauty so about half of the tweets resulted in the phrase "beauty is Rihanna" or "beauty is makeup."
+
+I used Python to access and clean the data, HTML to write the site, and a sloppy combination of Django and [PythonAnywhere](https://www.pythonanywhere.com/) to host it just long enough to present it in class. Now I know I can do all of this in R! I thought it would be fun to revisit this project with a better understanding of programming and APIs, as well as better tools: R and [RShiny](https://shiny.rstudio.com/). Here, I'll walk through my workflow and share some tips I've picked up for working with the Twitter API and publishing shiny apps!
+
+# The Twitter API
+
+## Side note: What is an API anyway?
+
+# Data cleaning
+Working with natural language in R is very new to me! I am no expert and this section should not be considered a tutorial. Here are some experts or smth::: 
+
+# Building the app
+
+# Data updates
+
+This looks pretty good! But what if we want our data to refresh every time a user opens the site? [Rstudio Connect](https://www.rstudio.com/pricing/connect/) is an option if you have $15000 to spend, but I don't so I wanted to find a way to refresh my app at set intervals -- say, daily. 

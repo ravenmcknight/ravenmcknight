@@ -1,0 +1,15 @@
+# Font style metadata
+name = "raven"
+
+# Optional Google font URL
+google_fonts = "Lora|Source Sans Pro:300"
+
+# Font families
+heading_font = "Lora"
+body_font = "Source Sans Pro"
+nav_font = "Source Sans Pro"
+mono_font = "Source Sans Pro"
+
+# Font size
+font_size = "20"
+font_size_small = "16"
