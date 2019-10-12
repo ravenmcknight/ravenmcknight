@@ -70,6 +70,6 @@ email: ""
 # - Visitors
 ---
 
-I'm a senior at [Macalester College](https://www.macalester.edu/) studying statistics with minors in geography and creative writing. Right now, I'm excited about spatial data, public transit, and creating reproducible research and [R](https://www.r-project.org/) resources! This year, I'm working at [Metro Transit](https://www.metrotransit.org/home) as a data science intern and participating in the [National Gallery of Art's](https://www.nga.gov/) first annual [Innovation Lab](https://www.nga.gov/press/2019/datathon.html). I've loved these opportunities to work for my community and explore such meaningful data!
+I'm a senior at [Macalester College](https://www.macalester.edu/) studying statistics with minors in geography and creative writing. Right now, I'm excited about spatial data, public transit, and creating reproducible research and [R](https://www.r-project.org/) resources! This year, I'm working at [Metro Transit](https://www.metrotransit.org/home) as a data science intern and participating in the [National Gallery of Art's](https://www.nga.gov/) first annual [Innovation Lab](https://www.nga.gov/press/2019/datathon.html). I've loved these opportunities to work for my community and explore real, meaningful data!
 
 This year, I'm also working on an honors thesis modeling spatio-temporal transit demand in the Twin Cities. When I'm not busy with statistics, I love rock climbing, poetry, and working on my design and visualization skills!
