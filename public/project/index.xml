@@ -18,11 +18,21 @@
       <pubDate>Tue, 05 Nov 2019 21:19:01 -0600</pubDate>
       
       <guid>https://ravenmcknight.com/project/october-in-coffee/</guid>
-      <description>&lt;p&gt;I was recently inspired by &lt;a href=&#34;https://twitter.com/alyssafowers/status/1178335347538825217&#34; target=&#34;_blank&#34;&gt;Allysa Fowers&lt;/a&gt; visualization of her fall semester coffee consumption. I tracked my own coffee-drinking data for a month and created this plot.&lt;/p&gt;
+      <description>&lt;p&gt;I was recently inspired by Alyssa Fowers &lt;a href=&#34;https://twitter.com/alyssafowers/status/1178335347538825217&#34; target=&#34;_blank&#34;&gt;visualization&lt;/a&gt; of her fall semester coffee consumption. I tracked my own coffee-drinking data for a month to create this plot!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ravenmcknight.com/october-in-coffee/index_files/coffee_ggplot.pdf&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;featured.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;It was fun to see where I drank abnormal amounts of coffee, or coffee at abnormal times &amp;ndash; like the office hours I hold on Mondays at 7pm or during my trip to DC towards the end of the month.&lt;/p&gt;
+&lt;p&gt;It was fun to see where I drank abnormal amounts of coffee, or coffee at abnormal times &amp;ndash; like the office hours I hold on Mondays at 7pm or during my trip to DC towards the end of the month. I was also surprised by how much the time of my first coffee varied &amp;ndash; I definitely expected to see a stronger &amp;ldquo;6am coffee&amp;rdquo; pattern.&lt;/p&gt;
+
+&lt;p&gt;&lt;img align = &#34;left&#34; style=&#34;margin: 0px 10px&#34; src=&#34;coffee.gif&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;I created this plot with &lt;code&gt;ggplot2&lt;/code&gt;, Illustrator, and a Gilmore Girls reference for good measure. What would a coffee viz be without Lorelai, after all?&lt;/p&gt;
+
+&lt;p&gt;Code for the plot is on my &lt;a href=&#34;https://github.com/ravenmcknight/visualization/tree/master/october_in_coffee&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;. Here&amp;rsquo;s to sleeping more in November!&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 </description>
     </item>
     
