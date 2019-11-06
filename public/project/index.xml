@@ -7,10 +7,24 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Raven McKnight</copyright>
-    <lastBuildDate>Sat, 02 Nov 2019 14:47:00 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 05 Nov 2019 21:19:01 -0600</lastBuildDate>
     
 	    <atom:link href="https://ravenmcknight.com/project/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>October in Coffee</title>
+      <link>https://ravenmcknight.com/project/october-in-coffee/</link>
+      <pubDate>Tue, 05 Nov 2019 21:19:01 -0600</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/october-in-coffee/</guid>
+      <description>&lt;p&gt;I was recently inspired by &lt;a href=&#34;https://twitter.com/alyssafowers/status/1178335347538825217&#34; target=&#34;_blank&#34;&gt;Allysa Fowers&lt;/a&gt; visualization of her fall semester coffee consumption. I tracked my own coffee-drinking data for a month and created this plot.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ravenmcknight.com/october-in-coffee/index_files/coffee_ggplot.pdf&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It was fun to see where I drank abnormal amounts of coffee, or coffee at abnormal times &amp;ndash; like the office hours I hold on Mondays at 7pm or during my trip to DC towards the end of the month.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Tossed Patterns</title>
@@ -22,11 +36,11 @@
 
 &lt;p&gt;I was inspired by dark, earthtone paisleys I saw on clothing growing up for my first pattern.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;paisley.jpg&#34; width=&#34;600&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;paisley.png&#34; width=&#34;600&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;I reused some of the same elements in my second pattern, and tried to incorporate each of the plants I have in my bedroom right now!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src = &#34;pattern.jpg&#34; width = &#34;600&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src = &#34;pattern.png&#34; width = &#34;600&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     

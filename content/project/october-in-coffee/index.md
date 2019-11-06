@@ -1,12 +1,12 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Tossed Patterns"
-summary: "Recently, I learned to create tossed patterns using Adobe Illustrator."
+title: "October in Coffee"
+summary: "A visualization of all the coffee I drank in October, 2019."
 authors: []
 tags: []
 categories: []
-date: 2019-11-02T14:47:00-05:00
+date: 2019-11-05T21:19:01-06:00
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
@@ -40,13 +40,9 @@ url_video: ""
 slides: ""
 ---
 
-I drew these patterns in Illustrator using a Wacom tablet. This was a really fun blend of doodling and digital art! 
+I was recently inspired by [Allysa Fowers](https://twitter.com/alyssafowers/status/1178335347538825217) visualization of her fall semester coffee consumption. I tracked my own coffee-drinking data for a month and created this plot. 
 
-I was inspired by dark, earthtone paisleys I saw on clothing growing up for my first pattern.
+![](/october-in-coffee/index_files/coffee_ggplot.pdf)
 
+It was fun to see where I drank abnormal amounts of coffee, or coffee at abnormal times -- like the office hours I hold on Mondays at 7pm or during my trip to DC towards the end of the month. 
 
-<img src="paisley.png" width="600">
-
-I reused some of the same elements in my second pattern, and tried to incorporate each of the plants I have in my bedroom right now!
-
-<img src = "pattern.png" width = "600">
