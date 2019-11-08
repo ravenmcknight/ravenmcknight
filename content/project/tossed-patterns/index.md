@@ -45,8 +45,8 @@ I drew these patterns in Illustrator using a Wacom tablet. This was a really fun
 I was inspired by dark, earthtone paisleys I saw on clothing growing up for my first pattern.
 
 
-<img src="paisley.png" width="600">
+[<img src="paisley.png" width="600">](https://www.ravenmcknight.com/project/tossed-patterns/paisley.png)
 
 I reused some of the same elements in my second pattern, and tried to incorporate each of the plants I have in my bedroom right now!
 
-<img src = "pattern.png" width = "600">
+[<img src = "pattern.png" width = "600">](https://www.ravenmcknight.com/project/tossed-patterns/pattern.png)
