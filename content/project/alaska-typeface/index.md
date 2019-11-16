@@ -40,6 +40,6 @@ url_video: ""
 slides: ""
 ---
 
-I designed this font by scratch in my 2D Design class by drawing, scanning, and digitizing each layer. It was a ton of fun, and a great opportunity to design a poster for one of my favorite musicians & songs!
+I designed this font from scratch in my 2D Design class by drawing, scanning, and digitizing each layer. It was a ton of fun, and a great opportunity to design a poster for one of my favorite musicians & songs!
 
 [![](full.png)](https://www.ravenmcknight.com/project/alaska-typeface/full.png)
