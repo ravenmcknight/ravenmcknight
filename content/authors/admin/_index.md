@@ -21,16 +21,17 @@ bio:
 
 interests:
 - Spatial statistics & geography
-- Transit planning & analysis
-- Open data & software
-- Reproducible research
+- Public transit planning & analysis
+- Hierarchical Bayesian modeling
+- Public health & disease risk modeling
 - Data visualization & cartography
-- Statistics and programming pedagogy
+- High-dimensional, correlated data
+- Reproducible research
 
 education:
   courses:
   - course: BA in Applied Math & Statistics
-    institution: Bayesian Statistics, Correlated Data, Statistical Machine Learning, Computational Linear Algebra, Urban GIS, 2D Design
+    institution: Bayesian Statistics, Mathematical Statistics, Correlated Data, Statistical Machine Learning, Computational Linear Algebra, Probability, Urban GIS, 2D Design, Cultural Atlas Production
     year: 2020
   
 
@@ -70,6 +71,6 @@ email: ""
 # - Visitors
 ---
 
-I'm a senior at [Macalester College](https://www.macalester.edu/) studying statistics with minors in geography and creative writing. Right now, I'm excited about spatial data, public transit, and creating reproducible research and [R](https://www.r-project.org/) resources! This year, I'm working at [Metro Transit](https://www.metrotransit.org/home) as a data science intern and participated in the [National Gallery of Art's](https://www.nga.gov/) first annual [Innovation Lab](https://www.youtube.com/watch?v=ewm4cL3vn6k&t=2153s). I've loved these opportunities to work for my community and explore real, meaningful data!
+I'm a senior at [Macalester College](https://www.macalester.edu/) studying statistics with minors in geography and creative writing. Right now, I'm excited about spatial data in public transit and public health, as well as creating reproducible research and [R](https://www.r-project.org/) resources! This year, I participated in the [National Gallery of Art's](https://www.nga.gov/) first annual Innovation Lab on the only undergraduate team. We explored gender diversity in the Gallery's collection and [presented](https://www.youtube.com/watch?v=ewm4cL3vn6k&) to Gallery curators and staff!
 
-This year, I'm also working on an honors thesis modeling spatio-temporal transit demand in the Twin Cities. When I'm not busy with statistics, I love rock climbing, poetry, and working on my design and visualization skills!
+Right now, I'm working at [Metro Transit](https://www.metrotransit.org/home) as a Research and Analytics data science intern. This position inspired my senior thesis fitting hierarchical spatial Bayesian models to Twin Cities bus ridership. I love using these types of models to answer "real world" questions while I learn about spatial statistics methodology! When I'm <i>not &nbsp;</i>thinking about statistics, I love rock climbing, poetry, and working on my design and visualization skills.
