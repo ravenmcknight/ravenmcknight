@@ -7,9 +7,104 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Raven McKnight</copyright>
+    <lastBuildDate>Tue, 05 Nov 2019 21:19:01 -0600</lastBuildDate>
     
 	    <atom:link href="https://ravenmcknight.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>October in Coffee</title>
+      <link>https://ravenmcknight.com/project/october-in-coffee/</link>
+      <pubDate>Tue, 05 Nov 2019 21:19:01 -0600</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/october-in-coffee/</guid>
+      <description>&lt;p&gt;I was recently inspired by Alyssa Fowers &lt;a href=&#34;https://twitter.com/alyssafowers/status/1178335347538825217&#34; target=&#34;_blank&#34;&gt;visualization&lt;/a&gt; of her fall semester coffee consumption. I tracked my own coffee-drinking data for a month to create this plot!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/october-in-coffee/featured.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;featured.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It was fun to see where I drank abnormal amounts of coffee, or coffee at abnormal times &amp;ndash; like the office hours I hold on Mondays at 7pm or during my trip to DC towards the end of the month. I was also surprised by how much the time of my first coffee varied &amp;ndash; I definitely expected to see a stronger &amp;ldquo;6am coffee&amp;rdquo; pattern.&lt;/p&gt;
+
+&lt;p&gt;&lt;img align = &#34;left&#34; style=&#34;margin: 0px 10px&#34; src=&#34;coffee.gif&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;I created this plot with &lt;code&gt;ggplot2&lt;/code&gt;, Illustrator, and a Gilmore Girls reference for good measure. What would a coffee viz be without Lorelai, after all?&lt;/p&gt;
+
+&lt;p&gt;Code for the plot is on my &lt;a href=&#34;https://github.com/ravenmcknight/visualization/tree/master/october_in_coffee&#34; target=&#34;_blank&#34;&gt;Github&lt;/a&gt;. Here&amp;rsquo;s to sleeping more in November!&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Alaska Typeface</title>
+      <link>https://ravenmcknight.com/project/alaska-typeface/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/alaska-typeface/</guid>
+      <description>&lt;p&gt;I designed this font from scratch in my 2D Design class by drawing, scanning, and digitizing each letter. It was a ton of fun, and a great opportunity to design a poster for one of my favorite musicians &amp;amp; songs!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/alaska-typeface/full.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;full.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Saint Paul 3K</title>
+      <link>https://ravenmcknight.com/project/saint-paul-3k/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/saint-paul-3k/</guid>
+      <description>&lt;p&gt;This StoryMap was created in collaboration with my Urban GIS class at Macalester. The class consists of a semester-long project supporting a community partner &amp;ndash; in our case, Saint Paul City Councilmember Rebecca Noeker and the Saint Paul 3K Initiative.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://storymaps.arcgis.com/stories/0350ab8ab7824256a4bfd3eef012eb74&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;featured.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The goal of Saint Paul 3K is to provide affordable, accessible childcare to all 3- and 4-year olds in Saint Paul. This is the second time Urban GIS has partnered with Councilmember Noeker. Our work focused on &lt;strong&gt;primary data collection&lt;/strong&gt; and &lt;strong&gt;identifying barriers to care&lt;/strong&gt; across Saint Paul. Check out the full StoryMap &lt;a href=&#34;https://storymaps.arcgis.com/stories/0350ab8ab7824256a4bfd3eef012eb74&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/alaska-typeface/full.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;full.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tossed Patterns</title>
+      <link>https://ravenmcknight.com/project/tossed-patterns/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/tossed-patterns/</guid>
+      <description>&lt;p&gt;I drew these patterns in Illustrator using a Wacom tablet. This was a really fun blend of doodling and digital art!&lt;/p&gt;
+
+&lt;p&gt;I was inspired by dark, earthtone paisleys I saw on clothing growing up for my first pattern.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/tossed-patterns/paisley.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;paisley.png&#34; width=&#34;600&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I reused some of the same elements in my second pattern, and tried to incorporate each of the plants I have in my bedroom right now!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/tossed-patterns/pattern.png&#34; target=&#34;_blank&#34;&gt;&lt;img src = &#34;pattern.png&#34; width = &#34;600&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Wannabe Geographer&#39;s Guide to Census Geography</title>
+      <link>https://ravenmcknight.com/project/census-geog-guide/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/census-geog-guide/</guid>
+      <description>&lt;p&gt;Our final project in my 2D Design class was called &amp;ldquo;Teach Me&amp;rdquo; &amp;ndash; we were meant to design something educational. My mind went straight to census geography! I designed this guide to be printed as a zine, but you can view a pdf of the pages &lt;a href=&#34;https://www.ravenmcknight.com/files/census-geog-guide.pdf&#34; target=&#34;_blank&#34;&gt;here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/files/census-geog-guide.pdf&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;featured.png&#34; alt=&#34;&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I covered five of the most common geographies, and focused on the county I live in right now. I also highlighted my favorite coffee shop to give a sense of scale. I even used the typeface I designed earlier in the semester! This was a super fun project to end the semester with :-)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Intent in Acquisition</title>
+      <link>https://ravenmcknight.com/project/intent-in-acquisition/</link>
+      <pubDate>Fri, 01 Nov 2019 08:25:37 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/intent-in-acquisition/</guid>
+      <description>&lt;p&gt;This is the app I created in collaboration with the National Gallery of Art. I would consider this app in the &amp;ldquo;prototype&amp;rdquo; stage &amp;ndash; my goal was to illustrate the types of questions that can be answered with the data the Gallery already collects. Check out the app &lt;a href=&#34;https://raven-mcknight.shinyapps.io/intent-in-acquisition/&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;, or hear me talk more about it &lt;a href=&#34;https://www.youtube.com/watch?v=ewm4cL3vn6k&amp;amp;&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
