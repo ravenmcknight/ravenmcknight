@@ -10,10 +10,10 @@ authors:
 superuser: true
 
 # Role/position
-role: Statistics Student 
+role: Statistician & Data Scientist
 # Organizations/Affiliations
 organizations:
-- name: Macalester College
+- name: Metro Transit
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
@@ -27,6 +27,7 @@ interests:
 - Data visualization & cartography
 - High-dimensional, correlated data
 - Reproducible research
+- Equity & accessibility 
 
 education:
   courses:
@@ -71,6 +72,14 @@ email: ""
 # - Visitors
 ---
 
-I'm a senior at [Macalester College](https://www.macalester.edu/) studying statistics with minors in geography and creative writing. Right now, I'm excited about spatial data in public transit and public health, as well as creating reproducible research and [R](https://www.r-project.org/) resources! This year, I participated in the [National Gallery of Art's](https://www.nga.gov/) first annual Innovation Lab on the only undergraduate team. We explored gender diversity in the Gallery's collection and [presented](https://www.youtube.com/watch?v=ewm4cL3vn6k&) to Gallery curators and staff!
 
-Right now, I'm working at [Metro Transit](https://www.metrotransit.org/home) as a Research and Analytics data science intern. This position inspired my senior thesis fitting hierarchical spatial Bayesian models to Twin Cities bus ridership. I love using these types of models to answer "real world" questions while I learn about spatial statistics methodology! When I'm <i>not &nbsp;</i>thinking about statistics, I love rock climbing, poetry, and working on my design and visualization skills.
+
+I'm a recent graduate of [Macalester College](https://www.macalester.edu/) where I studied statistics with minors in geography and creative writing. Right now, I work at [Metro Transit](https://www.metrotransit.org/home) as a Research and Analytics data science intern. At this position, I got interested in transit demand modeling and completed a statistics honors thesis on fitting hierarchical spatial Bayesian models to Twin Cities bus ridership. I'm interested in continuing work like this and in topics like spatial statistics, geographic data science, and reproducible research. 
+
+Outside of work, I love applying data science skills to new projects, like the [National Gallery of Art's](https://www.nga.gov/) first [datathon](https://www.nga.gov/audio-video/audio/datathon.html). My team explored gender diversity in the Gallery's collection and presented to Gallery curators and staff! When I'm not thinking about statistics, I love to read and write, knit, and rock climb. 
+
+
+
+
+
+
