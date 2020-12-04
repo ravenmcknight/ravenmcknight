@@ -1,8 +1,8 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Meandering Minneapolis: A Cultural Atlas"
-summary: ""
+title: "Meandering Minneapolis"
+summary: "A Cultural Atlas of Minneapolis!"
 authors: []
 tags: []
 categories: []
