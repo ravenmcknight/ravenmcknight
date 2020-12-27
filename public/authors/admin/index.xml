@@ -7,14 +7,325 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Raven McKnight</copyright>
+    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://ravenmcknight.com/authors/admin/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Introduction to Kernel Density Estimation</title>
+      <link>https://ravenmcknight.com/post/introduction-to-kde/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/post/introduction-to-kde/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;One of the last assignments I did before graduation was a tutorial on Kernel Density Estimation (KDE) for my classmates taking Mathematical Statistics. This is the tutorial and activities I wrote with my classmate, Kaden Bieger, to walk our class through the basics of KDE. Working through the activities in this tutorial should give you a good working understanding of Kernel Density Estimation!&lt;/p&gt;
+
+&lt;p&gt;Nonparametric statistics is a rapidly developing field. It is also very different than the parametric content covered in most Introduction to Mathematical Statistics classes! Broadly speaking, nonparametric methods allow us to relax assumptions about our data. We often assume our data comes from a normal distribution, or at the very least from a distribution with mean $\mu$ and variance $\sigma^2$. Nonparametric methods are not based on such parameters.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Kernel density estimation&lt;/em&gt; (KDE) is a common technique used to estimate probability density functions (PDFs). In practice, we rarely know much at all about the true distribution of our sampled data. KDE allows us to get an estimated PDF without making unreasonable assumptions of our data.&lt;/p&gt;
+
+&lt;h2 id=&#34;intuition&#34;&gt;Intuition&lt;/h2&gt;
+
+&lt;p&gt;KDE is a method you&amp;rsquo;ve seen before even if you don&amp;rsquo;t know it! The intuition behind KDE is similar to the intuition behind a simple &lt;strong&gt;histogram&lt;/strong&gt;. Histograms can be used to visually approximate the distribution of data. There are a few reasons we want a more sophisticated method, however. First, as the plot below illustrates, histograms are very sensitive to the number and width of bins. Additionally, a histogram provides an excessively local estimate &amp;ndash; there is no &amp;ldquo;smoothing&amp;rdquo; between neighboring bins.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/bincomp.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;ve ever made a &lt;strong&gt;density plot&lt;/strong&gt;, you have even more experience with KDE. Behind the scenes, the &lt;code&gt;ggplot2&lt;/code&gt; function &lt;code&gt;geom_density&lt;/code&gt; employs KDE! It turns out we can set the specific &lt;strong&gt;kernel&lt;/strong&gt; and &lt;strong&gt;bandwidth&lt;/strong&gt; when we call &lt;code&gt;geom_density&lt;/code&gt;. We&amp;rsquo;ll cover kernels and bandwidths below.&lt;/p&gt;
+
+&lt;h1 id=&#34;kernel-density-estimation&#34;&gt;Kernel Density Estimation&lt;/h1&gt;
+
+&lt;p&gt;The goal of kernel density estimation to to estimate the PDF of our data without knowing its distribution. We use a &lt;strong&gt;kernel&lt;/strong&gt; as a weighting function to smooth our data in order to get this estimate.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;kernel&lt;/strong&gt; is a probability density function with several additional conditions:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Kernels are non-negative and real-values&lt;/li&gt;
+&lt;li&gt;Kernels are symmetric about 0&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Several familiar PDFs, including the Gaussian and Uniform PDFs, meet these requirements. Once we have a kernel selected, we can implement KDE.&lt;/p&gt;
+
+&lt;p&gt;Given data $x = (x_1, x_2, \ldots, x_n)$, a kernel function $K$, and a selected bandwidth $h$, the kernel density estimate at point $s$ is defined&lt;/p&gt;
+
+&lt;p&gt;$$\hat{f}&lt;em&gt;n(s) = \frac{1}{nh} \sum&lt;/em&gt;{i = 1}^{n} K\left(\frac{x_i - s}{h}\right)$$&lt;/p&gt;
+
+&lt;p&gt;This is the kernel density estimator at a &lt;em&gt;single&lt;/em&gt; point. To estimate an entire PDF, we apply the kernel to each point in our sample. The procedure is as follows:&lt;/p&gt;
+
+&lt;p&gt;First, we apply the kernel function each data point in our sample. In the figure below, the blue points are our sample and the black lines are the kernel at each point.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/step1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, we sum all $n$ kernel functions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/step2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, we divide by $n$. Because each kernel function integrates to one, the resulting KDE will still integrate to one.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/step3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In notation, we can write this procedure as $f(x) = \frac{1}{n} \sum_{i=1}^{n} K(x - x_i)$ where $x-x_i$ centers the kernel function on each $x_i$. Note the similarity to the formal definition of a kernel density estimator above. The only additional parameter is the bandwidth!&lt;/p&gt;
+
+&lt;h4 id=&#34;acitivity-1&#34;&gt;Acitivity 1&lt;/h4&gt;
+
+&lt;p&gt;Consider 100 independent and identically distributed samples from an unknown distribution (plotted below). Given a bandwidth $h = 0.5$, write the Gaussian kernel density estimator for this sample at $s = 5$. We can use a standard normal with $\sigma^2 = 1$ and $\mu = 0$.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/activity1_1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Try plotting your calculated kernel density estimate using ggplot. You can compare your result to the output of &lt;code&gt;geom_density&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+  &lt;summary&gt;Click for our solution! &lt;/summary&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# simulate some data to use 
+set.seed(455)
+asimdat &amp;lt;- rchisq(n = 100, df = 5)
+asimdat &amp;lt;- data.frame(x = asimdat)
+  
+my_est &amp;lt;- function(x, xi = 5, h = 0.5){
+  # your estimate
+   1/((100 * h) *sqrt(2*pi)) * exp(-1/2 * ((x - xi)/h)^2) 
+}
+
+
+# to get the whole kde estimate, sum my_est over each s
+kern &amp;lt;- matrix(ncol = 100, nrow = 100)
+kde &amp;lt;- function(x, x_i = 5, h = 0.5){
+  for(i in 1:100){
+    kern[i, ] &amp;lt;- my_est(x = asimdat$x, x_i = asimdat$x[i], h = h)
+  }
+  colSums(kern)
+}
+
+ggplot(asimdat, aes(x=x)) +
+  theme_minimal() +
+  geom_density() +   # generic geom_density
+  geom_density(bw = 0.5, kernel = &amp;quot;gaussian&amp;quot;, color = &amp;quot;blue&amp;quot;) + #closer to your estimator
+  stat_function(fun = my_est, color = &amp;quot;red&amp;quot;)  + # your estimate at s = 5
+  geom_line(aes(x = x, y = kde(x)), color = &amp;quot;pink&amp;quot;) # and your overall estimate!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/activity1_2.png&#34; alt=&#34;&#34; /&gt;
+&lt;/details&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;choosing-a-kernel-function&#34;&gt;Choosing a Kernel Function&lt;/h1&gt;
+
+&lt;p&gt;Kernel functions are non-negative, symmetric, and decreasing for all $x &amp;gt; 0$ (because they&amp;rsquo;re symmetric, this also means they are increasing for all $x &amp;lt; 0$). Gaussian and Rectangular (uniform) are two kernel choices, though there are many others. The plot below shows kernel density estimates for the same simulated data using four common kernels. In this example, we use a fairly low bandwidth (0.3), to make differences between the kernels clear.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/kernelcomp.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Choice of kernel doesn&amp;rsquo;t affect end result that much, although there are benefits to some kernels in particular. The Epanechnikov kernel, for example, is MSE optimal.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bonus Activity:&lt;/strong&gt; If you want to try out other kernel options inside &lt;code&gt;geom_density&lt;/code&gt;, go to &amp;ldquo;Help&amp;rdquo; in Rstudio and search for &amp;ldquo;density.&amp;rdquo; Scroll down to &amp;ldquo;arguments&amp;rdquo; to see all possible kernels!&lt;/p&gt;
+
+&lt;h1 id=&#34;choosing-bandwidth&#34;&gt;Choosing Bandwidth&lt;/h1&gt;
+
+&lt;p&gt;The bandwidth is the width of our smoothing window &amp;ndash; following the histogram example, this is like the width of bins. Bandwidth is generally represented as $h$. Bandwidth is how we control the smoothness of our estimate. The figure below shows a Gaussian KDE with various bandwidths.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/bwcomp.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;bandwidth-tradeoffs&#34;&gt;Bandwidth tradeoffs&lt;/h2&gt;
+
+&lt;p&gt;A small $h$ places more weight on the data, while a large $h$ performs more smoothing. We can use smaller bandwidths when $n$ is larger, particularly when the data has a small range (ie it is tightly packed). Larger $h$ is better when we have less data or more spread out observations.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s an analogy here with Bayesian priors &amp;ndash; choosing $h$ lets us choose how much weight we want to give the data.&lt;/p&gt;
+
+&lt;h4 id=&#34;activity-2&#34;&gt;Activity 2&lt;/h4&gt;
+
+&lt;p&gt;Using the kernel you defined above, plot a KDE estimate using various values for $h$. You can do so by updating the bandwidth you defined in &lt;code&gt;my_est&lt;/code&gt;. For comparison, you can also use the parameter &lt;code&gt;bw&lt;/code&gt; within a &lt;code&gt;geom_density&lt;/code&gt;. How might you choose an optimal bandwidth?&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+  &lt;summary&gt; Example plots &lt;/summary&gt;&lt;/p&gt;
+
+&lt;p&gt;We can get KDE estimates using the KDE function we wrote above.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(asimdat, aes(x = x, y = kde(2))) +
+  geom_line() + theme_minimal()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/activity2_1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Or, more simply, we can use the built in &lt;code&gt;geom_density&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(asimdat, aes(x = x)) +
+  geom_density(bw = 2) + theme_minimal()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/activity2_2.png&#34; alt=&#34;&#34; /&gt;
+&lt;/details&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;bias-variance-mse&#34;&gt;Bias, Variance, MSE&lt;/h1&gt;
+
+&lt;h2 id=&#34;bias&#34;&gt;Bias&lt;/h2&gt;
+
+&lt;p&gt;Naturally, we would like to consider the bias and mean squared error of estimators produced by kernel density estimation. In this section, we outline proofs deriving the expected value, bias, and mean squared error for kernel density estimates. The proofs here are somewhat simplified but largely rely on &lt;strong&gt;u-substitution&lt;/strong&gt; and &lt;strong&gt;Taylor expansions&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Given observations $x_1, x_2, \ldots, x_n \overset{iid}{\sim} f$, we define the expected value of our estimator as follows:&lt;/p&gt;
+
+&lt;p&gt;$$
+\mathbf{E}[\hat{f}&lt;em&gt;n(s)] = \mathbf{E}\left[\frac{1}{nh} \displaystyle \sum&lt;/em&gt;{i = 1}^{n} K \left( \frac{x_i - s}{h}\right) \right] = \frac{1}{h}\mathbf{E}\left[K \left( \frac{x - s}{h}\right) \right] = \frac{1}{h} \int K\left( \frac{x - s}{h}\right) f(x) dx
+$$&lt;/p&gt;
+
+&lt;p&gt;This first line follows simply from the definitions of kernel density estimators and expected value.&lt;/p&gt;
+
+&lt;p&gt;Next, we let $u = \frac{x - s}{h}$ and substitute:&lt;/p&gt;
+
+&lt;p&gt;$$
+\mathbf{E}[\hat{f}_n(s)] = \frac{1}{h} \int K\left( u\right) f(hu + s) du
+$$&lt;/p&gt;
+
+&lt;p&gt;Then, we apply the 2nd order Taylor expansion for $f(hu + s)$ about $h = 0$. Omitting several steps of algebra, our Taylor expansion can be written&lt;/p&gt;
+
+&lt;p&gt;$$
+\begin{aligned}
+f(hu + s) &amp;amp;=  f(s) + \frac{f&amp;rsquo;(s)}{1!}(u)(h-0) + \frac{f&amp;rdquo;(s)}{2!}(u^2)(h-0)^2 + o(h^2) &lt;br /&gt;
+    &amp;amp;= f(s) + huf&amp;rsquo;(s) + \frac{h^2u^2}{2}f&amp;rdquo;(s) + o(h^2)
+\end{aligned}
+$$&lt;/p&gt;
+
+&lt;p&gt;where $o(h^2)$ is some function which approaches zero as $h$ approaches infinity. Technically, this $o()$ notation indications that $o(h^2)$ becomes negligible compared to $h^2$ as $h \rightarrow 0$. &lt;strong&gt;For our purposes, we assume $o(h^2) \rightarrow 0$ as $h \rightarrow 0$&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;We plug the Taylor expansion into our expected value above and simplify via algebra.&lt;/p&gt;
+
+&lt;p&gt;$$
+\begin{aligned}
+\mathbf{E}[\hat{f}_n(s)] &amp;amp; = \int K(u) \left[f(s) + huf&amp;rsquo;(s) + \frac{h^2u^2}{2}f&amp;rdquo;(s) + o(h^2)\right] du \\&lt;br /&gt;
+&amp;amp; = f(s)\int K(u) du + hf&amp;rsquo;(s)\int uK(u) du +  \frac{h^2}{2}f&amp;rdquo;(s)\int u^2 K(u)du  + o(h^2) \\&lt;br /&gt;
+&amp;amp; = f(s) + \frac{h^2}{2}f&amp;rdquo;(s)\int u^2 K(u)du + o(h^2)
+\end{aligned}
+$$&lt;/p&gt;
+
+&lt;p&gt;We can plug this into the definition of bias such that&lt;/p&gt;
+
+&lt;p&gt;$$
+\begin{aligned}
+\textbf{Bias}(\hat{f}_n(s)) &amp;amp;= E[\hat{f}_n(s)] - f(s) = \frac{h^2}{2}f&amp;rdquo;(s)\int u^2 K(u)du + o(h^2) &lt;br /&gt;
+    &amp;amp;= \frac{t \cdot h^2}{2}f&amp;rdquo;(s) + o(h^2)
+\end{aligned}
+$$&lt;/p&gt;
+
+&lt;p&gt;where $t = \int u^2 K(u)du$.&lt;/p&gt;
+
+&lt;h4 id=&#34;activity-3&#34;&gt;Activity 3&lt;/h4&gt;
+
+&lt;p&gt;What happens to bias as bandwidth $h$ increases/decreases?&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+  &lt;summary&gt; Answer &lt;/summary&gt;&lt;/p&gt;
+
+&lt;p&gt;As $h$ increases, bias increases (and vice versa).
+&lt;/details&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;variance&#34;&gt;Variance&lt;/h2&gt;
+
+&lt;p&gt;The proof for variance is very similar to the proof for bias. This proof is possible because $K$ is symmetric about 0. Feel free to work through this proof more on your own!&lt;/p&gt;
+
+&lt;p&gt;$$
+\begin{aligned}
+    \mathbf{Var}(\hat{f}&lt;em&gt;n(s))
+    &amp;amp;=
+    \mathbf{Var} \left(\frac{1}{nh} \displaystyle \sum&lt;/em&gt;{i = 1}^{n} K \left(\frac{x_i - s}{h}\right)\right) &lt;br /&gt;
+    &amp;amp;= \frac{1}{nh^2} \left(\mathbf{E}\left[ K^2 \left( \frac{x - s}{h}\right) \right] - \mathbf{E}\left[ K \left( \frac{x - s}{h}\right)\right]^2\right)&lt;br /&gt;
+    &amp;amp;\leq
+    \frac{1}{nh^2} \mathbf{E}\left[ K^2 \left( \frac{x - s}{h}\right) \right] &lt;br /&gt;
+    &amp;amp;=
+    \frac{1}{nh^2} \int K^2 \left( \frac{x - s}{h}\right)f(x) dx
+  \end{aligned}
+$$&lt;/p&gt;
+
+&lt;p&gt;As above, we substitute $u = \frac{x-s}{h}$ and plug in a 1st order Taylor expansion of $f(hu + s)$.&lt;/p&gt;
+
+&lt;p&gt;$$
+\begin{aligned}
+    \mathbf{Var}(\hat{f}_n(s))
+    &amp;amp;\leq
+    \frac{1}{nh^2} \int K^2(u)f(hu + s)hdu \\&lt;br /&gt;
+    &amp;amp;=
+    \frac{1}{nh} \int K^2(u)f(hu + s)du \\&lt;br /&gt;
+    &amp;amp;=
+    \frac{1}{nh} \int K^2(u)[f(s) + huf&amp;rsquo;(s) + o(h)]du  \\&lt;br /&gt;
+    &amp;amp;=
+    \frac{1}{nh} \bigg(f(s)\int K^2(u) du + hf&amp;rsquo;(s)\int uK^2(u) du + o(h)\bigg) \\&lt;br /&gt;
+    \mathbf{Var}(\hat{f}_n(s)) &amp;amp;\leq \frac{f(s)}{nh}\int K^2(u) du + o\bigg(\frac{1}{nh}\bigg) \\&lt;br /&gt;
+    &amp;amp;=
+    \frac{z}{nh}f(s) + o\bigg(\frac{1}{nh}\bigg)
+  \end{aligned}
+$$&lt;/p&gt;
+
+&lt;p&gt;where $z = \int K^2(u) du$.&lt;/p&gt;
+
+&lt;h4 id=&#34;activity-4&#34;&gt;Activity 4&lt;/h4&gt;
+
+&lt;p&gt;What happens to variance as $h$ changes? As $n$ changes?&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+  &lt;summary&gt; Answer &lt;/summary&gt;&lt;/p&gt;
+
+&lt;p&gt;As $h$ increases, variance decreases (and vice versa).&lt;/p&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;activity-5&#34;&gt;Activity 5&lt;/h4&gt;
+
+&lt;p&gt;Given the Bias and Variance above, find the Mean Squared Error of our estimator. Recall that the formula for MSE is $Var() + Bias^2()$.&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+  &lt;summary&gt; Click to see our work! &lt;/summary&gt;
+$$
+\begin{aligned}
+    MSE(\hat{f}_n(s)) &amp;amp;=
+    Bias^2(\hat{f}_n(s)) + Var(\hat{f}_n(s)) \\&lt;br /&gt;
+    &amp;amp;=
+    \left(\frac{th^2}{2}f&amp;rdquo;(s) + o(h^2) \right)^2 +  \frac{z}{nh}f(s) + o\left(\frac{1}{nh}\right) \\&lt;br /&gt;
+    &amp;amp;=
+    \frac{t^2h^4}{4}\left[f&amp;rdquo;(s)\right]^2 +  \frac{z}{nh}f(s) + o(h^4) + o\left(\frac{1}{nh}\right)
+  \end{aligned}
+$$&lt;/p&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;asymptotic-mse&#34;&gt;Asymptotic MSE&lt;/h2&gt;
+
+&lt;p&gt;Given the MSE we derived above, we can see that the Asymptotic MSE (AMSE) is $\frac{t^2h^4}{4}\left[f&amp;rdquo;(s)\right]^2 +  \frac{z}{nh}f(s)$. Often, we use the AMSE to optimize $h$ at a given point.&lt;/p&gt;
+
+&lt;h4 id=&#34;activity-6&#34;&gt;Activity 6&lt;/h4&gt;
+
+&lt;p&gt;Try optimizing the AMSE in terms of $h$. If you&amp;rsquo;re up for a challenge, try finding the optimal $h$ for the sample in Activity 1 (with $h = 0.5$ and $s = 5$)!&lt;/p&gt;
+
+&lt;p&gt;&lt;details&gt;
+  &lt;summary&gt; Click to see our work! &lt;/summary&gt;
+  $$
+\begin{align&lt;em&gt;}
+    \frac{\partial}{\partial h} \textbf{AMSE}(\hat{f}&lt;em&gt;n(s))
+    &amp;amp;=
+    \frac{\partial}{\partial h}\left(\frac{t^2}{4}\left[f&amp;rdquo;(s)\right]^2\right)\mathbf{h^4} +  \left(\frac{z}{n}f(s)\right)\mathbf{\frac{1}{h}} &lt;br /&gt;
+    &amp;amp;=
+    \left(t^2\left[f&amp;rdquo;(s)\right]^2\right)\mathbf{h^3} -  \left(\frac{z}{n}f(s)\right)\mathbf{\frac{1}{h^2}} &lt;br /&gt;
+    0 &amp;amp;= \left(t^2\left[f&amp;rdquo;(s)\right]^2\right)\mathbf{h^5} -  \left(\frac{z}{n}f(s)\right) &lt;br /&gt;
+    \mathbf{h&lt;/em&gt;{opt}} &amp;amp;= \left(\frac{zf(s)}{nt^2\left[f&amp;rdquo;(s)\right]^2}\right)^{\frac{1}{5}}
+  \end{align&lt;/em&gt;}
+$$&lt;/p&gt;
+
+&lt;p&gt;&lt;/details&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;an-open-question-amise&#34;&gt;An Open Question: AMISE&lt;/h2&gt;
+
+&lt;p&gt;The optimization in Activity 6 optimizes $h$ at a given $x$ value. A common method for optimizing $h$ across an entire distribution is using the asymptotic mean integrated square error (AMISE). As the name suggests, we can define the AMISE as follows:&lt;/p&gt;
+
+&lt;p&gt;$$
+\textbf{AMISE}(\hat{f}_n(s)) = \int \left(\frac{t^2h^4}{4}\left[f&amp;rdquo;(s)\right]^2 +  \frac{z}{nh}f(s) \right) dx
+$$
+It&amp;rsquo;s possible to optimize AMISE in terms of $h$ to get the optimal bandwidth across an entire sample. We won&amp;rsquo;t ask you to do this &amp;ndash; it&amp;rsquo;s definitely a challenge problem! In the end, you&amp;rsquo;d find that the optimal $h$ is dependent upon $\int \left[f&amp;rdquo;(x)\right]^2 dx$, or the curvature of the underlying PDF. Many recent advancements in KDE studies have been in the realm of estimating AMISE or the underlying curvature in order to optimize $h$.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title></title>
       <link>https://ravenmcknight.com/authors/admin/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://ravenmcknight.com/authors/admin/</guid>
       <description>&lt;p&gt;I&amp;rsquo;m a recent graduate of &lt;a href=&#34;https://www.macalester.edu/&#34; target=&#34;_blank&#34;&gt;Macalester College&lt;/a&gt; where I studied statistics with minors in geography and creative writing. Right now, I work at &lt;a href=&#34;https://www.metrotransit.org/home&#34; target=&#34;_blank&#34;&gt;Metro Transit&lt;/a&gt; as a Research and Analytics data science intern. At this position, I got interested in transit demand modeling and completed a statistics honors thesis on fitting hierarchical spatial Bayesian models to Twin Cities bus ridership. I&amp;rsquo;m interested in continuing work like this and in topics like spatial statistics, geographic data science, and reproducible research.&lt;/p&gt;

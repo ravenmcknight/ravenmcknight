@@ -10,7 +10,7 @@ categories: []
 date: "2020-12-27"
 lastmod: 
 featured: false
-draft: true
+draft: false
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -53,9 +53,7 @@ Several familiar PDFs, including the Gaussian and Uniform PDFs, meet these requi
 
 Given data $x = (x_1, x_2, \ldots, x_n)$, a kernel function $K$, and a selected bandwidth $h$, the kernel density estimate at point $s$ is defined
 
-$$
-\hat{f}_n(s) = \frac{1}{nh} \sum_{i = 1}^{n} K\left(\frac{x_i - s}{h}\right)
-$$
+$$\hat{f}_n(s) = \frac{1}{nh} \sum_{i = 1}^{n} K\left(\frac{x_i - s}{h}\right)$$
 
 This is the kernel density estimator at a *single* point. To estimate an entire PDF, we apply the kernel to each point in our sample. The procedure is as follows: 
 
