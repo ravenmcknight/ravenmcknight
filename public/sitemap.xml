@@ -54,6 +54,11 @@
   </url>
   
   <url>
+    <loc>https://ravenmcknight.com/post/testpost/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ravenmcknight.com/authors/</loc>
     <priority>0</priority>
   </url>
