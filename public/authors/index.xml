@@ -7,7 +7,6 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Raven McKnight</copyright>
-    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://ravenmcknight.com/authors/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +14,7 @@
     <item>
       <title></title>
       <link>https://ravenmcknight.com/authors/admin/</link>
-      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ravenmcknight.com/authors/admin/</guid>
       <description>&lt;p&gt;I&amp;rsquo;m a recent graduate of &lt;a href=&#34;https://www.macalester.edu/&#34; target=&#34;_blank&#34;&gt;Macalester College&lt;/a&gt; where I studied statistics with minors in geography and creative writing. Right now, I work at &lt;a href=&#34;https://www.metrotransit.org/home&#34; target=&#34;_blank&#34;&gt;Metro Transit&lt;/a&gt; as a Research and Analytics data science intern. At this position, I got interested in transit demand modeling and completed a statistics honors thesis on fitting hierarchical spatial Bayesian models to Twin Cities bus ridership. I&amp;rsquo;m interested in continuing work like this and in topics like spatial statistics, geographic data science, and reproducible research.&lt;/p&gt;
