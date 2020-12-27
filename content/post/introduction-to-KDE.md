@@ -2,7 +2,11 @@
 title: "Kernel Density Estimation"
 date: "2020-12-26"
 output: 
-  html_document:
+  html_document: 
+    theme: readable
+    toc: true
+    toc_float: true
+    code_folding: hide
     keep_md: true
 ---
 
