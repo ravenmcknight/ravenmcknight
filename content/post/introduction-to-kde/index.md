@@ -17,7 +17,7 @@ draft: false
 # Placement options: 1 = Full column width, 2 = Out-set, 3 = Screen-width
 # Focal point options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
 image:
-  placement: 
+  placement: 2
   caption: 
   focal_point: ""
   preview_only: false
@@ -53,9 +53,9 @@ Several familiar PDFs, including the Gaussian and Uniform PDFs, meet these requi
 
 Given data $x = (x_1, x_2, \ldots, x_n)$, a kernel function $K$, and a selected bandwidth $h$, the kernel density estimate at point $s$ is defined
 
-\begin{equation}
+$$
   \hat{f}_n(s) = \frac{1}{nh} \sum_{i = 1}^{n} K\left(\frac{x_i - s}{h}\right)
-\end{equation}
+$$
 
 This is the kernel density estimator at a *single* point. To estimate an entire PDF, we apply the kernel to each point in our sample. The procedure is as follows: 
 
@@ -176,8 +176,8 @@ We plug the Taylor expansion into our expected value above and simplify via alge
 
 $$
 \begin{aligned}
-\mathbf{E}[\hat{f}_n(s)] & = \int K(u) \left[f(s) + huf'(s) + \frac{h^2u^2}{2}f''(s) + o(h^2)\right] du \\ \\
-& = f(s)\int K(u) du + hf'(s)\int uK(u) du +  \frac{h^2}{2}f''(s)\int u^2 K(u)du  + o(h^2) \\
+\mathbf{E}[\hat{f}_n(s)] & = \int K(u) \left[f(s) + huf'(s) + \frac{h^2u^2}{2}f''(s) + o(h^2)\right] du \\\\
+& = f(s)\int K(u) du + hf'(s)\int uK(u) du +  \frac{h^2}{2}f''(s)\int u^2 K(u)du  + o(h^2) \\\\
 & = f(s) + \frac{h^2}{2}f''(s)\int u^2 K(u)du + o(h^2)
 \end{aligned}
 $$
@@ -217,14 +217,14 @@ $$
 \begin{aligned}
     \mathbf{Var}(\hat{f}_n(s))
     &\leq
-    \frac{1}{nh^2} \int K^2(u)f(hu + s)hdu \\
+    \frac{1}{nh^2} \int K^2(u)f(hu + s)hdu \\\\
     &=
-    \frac{1}{nh} \int K^2(u)f(hu + s)du \\
+    \frac{1}{nh} \int K^2(u)f(hu + s)du \\\\
     &=
-    \frac{1}{nh} \int K^2(u)[f(s) + huf'(s) + o(h)]du  \\
+    \frac{1}{nh} \int K^2(u)[f(s) + huf'(s) + o(h)]du  \\\\
     &=
-    \frac{1}{nh} \bigg(f(s)\int K^2(u) du + hf'(s)\int uK^2(u) du + o(h)\bigg) \\
-    \mathbf{Var}(\hat{f}_n(s)) &\leq \frac{f(s)}{nh}\int K^2(u) du + o\bigg(\frac{1}{nh}\bigg) \\
+    \frac{1}{nh} \bigg(f(s)\int K^2(u) du + hf'(s)\int uK^2(u) du + o(h)\bigg) \\\\
+    \mathbf{Var}(\hat{f}_n(s)) &\leq \frac{f(s)}{nh}\int K^2(u) du + o\bigg(\frac{1}{nh}\bigg) \\\\
     &=
     \frac{z}{nh}f(s) + o\bigg(\frac{1}{nh}\bigg)
   \end{aligned}
@@ -243,9 +243,9 @@ Given the Bias and Variance above, find the Mean Squared Error of our estimator.
 $$
 \begin{aligned}
     MSE(\hat{f}_n(s)) &=
-    Bias^2(\hat{f}_n(s)) + Var(\hat{f}_n(s)) \\
+    Bias^2(\hat{f}_n(s)) + Var(\hat{f}_n(s)) \\\\
     &=
-    \left(\frac{th^2}{2}f''(s) + o(h^2) \right)^2 +  \frac{z}{nh}f(s) + o\left(\frac{1}{nh}\right) \\
+    \left(\frac{th^2}{2}f''(s) + o(h^2) \right)^2 +  \frac{z}{nh}f(s) + o\left(\frac{1}{nh}\right) \\\\
     &=
     \frac{t^2h^4}{4}\left[f''(s)\right]^2 +  \frac{z}{nh}f(s) + o(h^4) + o\left(\frac{1}{nh}\right)
   \end{aligned}

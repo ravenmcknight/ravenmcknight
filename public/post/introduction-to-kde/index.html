@@ -562,9 +562,9 @@
 </div>
 
 
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 720px;">
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 1200px; max-height: 1200px;">
   <div style="position: relative">
-    <img src="/post/introduction-to-kde/featured_hu4f6717cd7d57a9115c391ef9ed272a0b_190171_720x0_resize_lanczos_2.png" alt="" class="featured-image">
+    <img src="/post/introduction-to-kde/featured_hu4f6717cd7d57a9115c391ef9ed272a0b_190171_1200x0_resize_lanczos_2.png" alt="" class="featured-image">
     
   </div>
 </div>
@@ -607,9 +607,9 @@
 
 <p>Given data $x = (x_1, x_2, \ldots, x_n)$, a kernel function $K$, and a selected bandwidth $h$, the kernel density estimate at point $s$ is defined</p>
 
-<p>\begin{equation}
+<p>$$
   \hat{f}<em>n(s) = \frac{1}{nh} \sum</em>{i = 1}^{n} K\left(\frac{x_i - s}{h}\right)
-\end{equation}</p>
+$$</p>
 
 <p>This is the kernel density estimator at a <em>single</em> point. To estimate an entire PDF, we apply the kernel to each point in our sample. The procedure is as follows:</p>
 
@@ -735,8 +735,8 @@ $$</p>
 
 <p>$$
 \begin{aligned}
-\mathbf{E}[\hat{f}_n(s)] &amp; = \int K(u) \left[f(s) + huf&rsquo;(s) + \frac{h^2u^2}{2}f&rdquo;(s) + o(h^2)\right] du \ <br />
-&amp; = f(s)\int K(u) du + hf&rsquo;(s)\int uK(u) du +  \frac{h^2}{2}f&rdquo;(s)\int u^2 K(u)du  + o(h^2) <br />
+\mathbf{E}[\hat{f}_n(s)] &amp; = \int K(u) \left[f(s) + huf&rsquo;(s) + \frac{h^2u^2}{2}f&rdquo;(s) + o(h^2)\right] du \<br />
+&amp; = f(s)\int K(u) du + hf&rsquo;(s)\int uK(u) du +  \frac{h^2}{2}f&rdquo;(s)\int u^2 K(u)du  + o(h^2) \<br />
 &amp; = f(s) + \frac{h^2}{2}f&rdquo;(s)\int u^2 K(u)du + o(h^2)
 \end{aligned}
 $$</p>
@@ -779,14 +779,14 @@ $$</p>
 \begin{aligned}
     \mathbf{Var}(\hat{f}_n(s))
     &amp;\leq
-    \frac{1}{nh^2} \int K^2(u)f(hu + s)hdu <br />
+    \frac{1}{nh^2} \int K^2(u)f(hu + s)hdu \<br />
     &amp;=
-    \frac{1}{nh} \int K^2(u)f(hu + s)du <br />
+    \frac{1}{nh} \int K^2(u)f(hu + s)du \<br />
     &amp;=
-    \frac{1}{nh} \int K^2(u)[f(s) + huf&rsquo;(s) + o(h)]du  <br />
+    \frac{1}{nh} \int K^2(u)[f(s) + huf&rsquo;(s) + o(h)]du  \<br />
     &amp;=
-    \frac{1}{nh} \bigg(f(s)\int K^2(u) du + hf&rsquo;(s)\int uK^2(u) du + o(h)\bigg) <br />
-    \mathbf{Var}(\hat{f}_n(s)) &amp;\leq \frac{f(s)}{nh}\int K^2(u) du + o\bigg(\frac{1}{nh}\bigg) <br />
+    \frac{1}{nh} \bigg(f(s)\int K^2(u) du + hf&rsquo;(s)\int uK^2(u) du + o(h)\bigg) \<br />
+    \mathbf{Var}(\hat{f}_n(s)) &amp;\leq \frac{f(s)}{nh}\int K^2(u) du + o\bigg(\frac{1}{nh}\bigg) \<br />
     &amp;=
     \frac{z}{nh}f(s) + o\bigg(\frac{1}{nh}\bigg)
   \end{aligned}
@@ -807,9 +807,9 @@ $$</p>
 $$
 \begin{aligned}
     MSE(\hat{f}_n(s)) &amp;=
-    Bias^2(\hat{f}_n(s)) + Var(\hat{f}_n(s)) <br />
+    Bias^2(\hat{f}_n(s)) + Var(\hat{f}_n(s)) \<br />
     &amp;=
-    \left(\frac{th^2}{2}f&rdquo;(s) + o(h^2) \right)^2 +  \frac{z}{nh}f(s) + o\left(\frac{1}{nh}\right) <br />
+    \left(\frac{th^2}{2}f&rdquo;(s) + o(h^2) \right)^2 +  \frac{z}{nh}f(s) + o\left(\frac{1}{nh}\right) \<br />
     &amp;=
     \frac{t^2h^4}{4}\left[f&rdquo;(s)\right]^2 +  \frac{z}{nh}f(s) + o(h^4) + o\left(\frac{1}{nh}\right)
   \end{aligned}
