@@ -5,22 +5,7 @@ output:
   html_document:
     keep_md: true
 ---
-```{r echo = FALSE}
-# this code chunk installs and loads all the libraries you'll need for the activity
-packages <- c('ggplot2', 'gridExtra')
 
-miss_pkgs <- packages[!packages %in% installed.packages()[,1]]
-
-if(length(miss_pkgs) > 0){
-  install.packages(miss_pkgs)
-}
-
-invisible(lapply(packages, library, character.only = TRUE))
-
-rm(miss_pkgs, packages)
-
-set.seed(455)
-```
 
 
 # Introduction
@@ -37,7 +22,8 @@ Nonparametric statistics is a rapidly developing field. It is also very differen
 KDE is a method you've seen before even if you don't know it! The intuition behind KDE is similar to the intuition behind a simple **histogram**. Histograms can be used to visually approximate the distribution of data. There are a few reasons we want a more sophisticated method, however. First, as the plot below illustrates, histograms are very sensitive to the number and width of bins. Additionally, a histogram provides an excessively local estimate -- there is no "smoothing" between neighboring bins. 
 
 
-```{r}
+
+```r
 set.seed(455)
 simdat <- rnorm(n = 100, mean = 2, sd = 4)
 # fn borrowed from Son Phan
@@ -52,6 +38,8 @@ grid.arrange(hist_bins(simdat, 10),
              hist_bins(simdat, 40), 
              hist_bins(simdat, 80), nrow=2)
 ```
+
+![](introduction-to-KDE_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 
 If you've ever made a **density plot**, you have even more experience with KDE. Behind the scenes, the `ggplot2` function `geom_density` employs KDE! It turns out we can set the specific **kernel** and **bandwidth** when we call `geom_density`. We'll cover kernels and bandwidths below.
@@ -77,121 +65,36 @@ Given data $x = (x_1, x_2, \ldots, x_n)$, a kernel function $K$, and a selected 
 This is the kernel density estimator at a *single* point. To estimate an entire PDF, we apply the kernel to each point in our sample. The procedure is as follows: 
 
 1. Apply the kernel function each data point in our sample
-```{r, echo=FALSE}
-set.seed(10)
-x1 <- rnorm(30, mean = 400, sd = 400)
-y1 <- rnorm(30, mean = 0, sd = 0)
-
-simdat1 <- data.frame(x1, y1)
-
-#for (q in 1:30){
-ggplot(simdat1) +
-  geom_point(aes(x = x1, y = y1), color = "blue", size = 2)+
-  stat_function(fun = dnorm, args = list(mean = x1[1], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[2], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[3], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[4], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[5], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[6], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[7], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[8], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[9], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[10], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[11], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[12], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[13], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[14], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[15], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[16], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[17], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[18], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[19], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[20], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[21], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[22], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[23], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[24], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[25], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[26], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[27], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[28], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[29], sd = 50))+
-  stat_function(fun = dnorm, args = list(mean = x1[30], sd = 50))
-#}
-```
+![](introduction-to-KDE_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 2. Sum all $n$ kernel functions
-```{r, echo=FALSE}
-eq <- function(x){
-  dnorm(x, mean = x1[1], sd = 50)+
-  dnorm(x, mean = x1[2], sd = 50)+
-  dnorm(x, mean = x1[3], sd = 50)+
-  dnorm(x, mean = x1[4], sd = 50)+
-  dnorm(x, mean = x1[5], sd = 50)+
-  dnorm(x, mean = x1[6], sd = 50)+
-  dnorm(x, mean = x1[7], sd = 50)+
-  dnorm(x, mean = x1[8], sd = 50)+
-  dnorm(x, mean = x1[9], sd = 50)+
-  dnorm(x, mean = x1[10],sd = 50)+
-  dnorm(x, mean = x1[11], sd = 50)+
-  dnorm(x, mean = x1[12], sd = 50)+
-  dnorm(x, mean = x1[13], sd = 50)+
-  dnorm(x, mean = x1[14], sd = 50)+
-  dnorm(x, mean = x1[15], sd = 50)+
-  dnorm(x, mean = x1[16], sd = 50)+
-  dnorm(x, mean = x1[17], sd = 50)+
-  dnorm(x, mean = x1[18], sd = 50)+
-  dnorm(x, mean = x1[19], sd = 50)+
-  dnorm(x, mean = x1[20], sd = 50)+  
-  dnorm(x, mean = x1[21], sd = 50)+
-  dnorm(x, mean = x1[22], sd = 50)+
-  dnorm(x, mean = x1[23], sd = 50)+
-  dnorm(x, mean = x1[24], sd = 50)+
-  dnorm(x, mean = x1[25], sd = 50)+
-  dnorm(x, mean = x1[26], sd = 50)+
-  dnorm(x, mean = x1[27], sd = 50)+
-  dnorm(x, mean = x1[28], sd = 50)+
-  dnorm(x, mean = x1[29], sd = 50)+
-  dnorm(x, mean = x1[30], sd = 50)
-}
-ggplot(simdat1) +
-  geom_point(aes(x = x1, y = y1), color = "blue", size = 2)+
-  stat_function(fun=eq)
-```
+![](introduction-to-KDE_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 3. Divide by $n$. Because each kernel function integrates to one, the resulting KDE will still integrate to one. 
-```{r, echo=FALSE}
-kde <- function(x){
-  eq(x)/30
-}
-ggplot(simdat1) +
-  geom_point(aes(x = x1, y = y1), color = "blue", size = 2)+
-  stat_function(fun=kde)
-```
+![](introduction-to-KDE_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 In notation, we can write this procedure as $f(x) = \frac{1}{n} \sum_{i=1}^{n} K(x - x_i)$ where $x-x_i$ centers the kernel function on each $x_i$. Note the similarity to the formal definition of a kernel density estimator above. The only additional parameter is the bandwidth!
 
 
-```{r echo = FALSE}
-#simulate data, make it impossible to see this code
-set.seed(455)
-asimdat <- rchisq(n = 100, df = 5)
-asimdat <- data.frame(x = asimdat)
-```
+
 
 #### Acitivity 1
 
 Consider 100 independent and identically distributed samples from an unknown distribution (plotted below). Given a bandwidth $h = 0.5$, write the Gaussian kernel density estimator for this sample at $x_i = 5$. We can use a standard normal with $\sigma^2 = 1$ and $\mu = 0$. 
 
-```{r}
+
+```r
 ggplot(asimdat, aes(x=x)) +
   geom_histogram(bins = 15, fill = "steelblue3") +
   theme_minimal() + ggtitle("iid sample from unknown distribution")
 ```
 
+![](introduction-to-KDE_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+
 Try plotting your calculated kernel density estimate below. There are lots of built in ways to calculate KDEs, but we've provided a code outline so you can see how this process works "under the hood." Compare your results to output of `geom_density`!
 
-```{r eval = FALSE}
+
+```r
 # delete eval = FALSE above if you want the plots to show up in your knitted doc!
 
 my_est <- function(x, xi = 5, h = 0.5){
@@ -228,7 +131,8 @@ ggplot(asimdat, aes(x=x)) +
 
 Kernel functions are non-negative, symmetric, and decreasing for all $x > 0$ (because they're symmetric, this also means they are increasing for all $x < 0$). Gaussian and Rectangular (uniform) are two kernel choices, though there are many others. The plot below shows kernel density estimates for the same simulated data using four common kernels. In this example, we use a fairly low bandwidth (0.3), to make differences between the kernels clear. 
 
-```{r}
+
+```r
 gaus <- ggplot(mapping = aes(x = simdat, y=..density..)) +
   geom_histogram(bins = 10, fill = "steelblue3") + theme_minimal() +
   geom_density(kernel = "gaussian", bw = 0.3, color = "pink", size = 1) +
@@ -252,6 +156,8 @@ rect <- ggplot(mapping = aes(x = simdat, y=..density..)) +
 grid.arrange(gaus, e, tri, rect, nrow=2)
 ```
 
+![](introduction-to-KDE_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+
 Choice of kernel doesn't affect end result that much, although there are benefits to some kernels in particular. The Epanechnikov kernel, for example, is MSE optimal. 
 
 **Bonus Activity:** If you want to try out other kernel options inside `geom_density`, go to "Help" in Rstudio and search for "density." Scroll down to "arguments" to see all possible kernels!
@@ -261,7 +167,8 @@ Choice of kernel doesn't affect end result that much, although there are benefit
 
 The bandwidth is the width of our smoothing window -- following the histogram example, this is like the width of bins. Bandwidth is generally represented as $h$. Bandwidth is how we control the smoothness of our estimate. The figure below shows a Gaussian KDE with various bandwidths. 
 
-```{r}
+
+```r
 gaus25 <- ggplot(mapping = aes(x = simdat, y=..density..)) +
   geom_histogram(bins = 10, fill = "steelblue3") + theme_minimal() +
   geom_density(kernel = "gaussian", bw = 0.25, color = "pink", size = 1) +
@@ -285,6 +192,8 @@ gaus1 <- ggplot(mapping = aes(x = simdat, y=..density..)) +
 grid.arrange(gaus25, gaus50, gaus75, gaus1, nrow=2)
 ```
 
+![](introduction-to-KDE_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+
 
 ## Bandwidth tradeoffs
 
@@ -297,7 +206,8 @@ There's an analogy here with Bayesian priors -- choosing $h$ lets us choose how 
 
 Using the kernel you defined above, plot a KDE estimate using 3 different values for $h$. You can do so by updating the bandwidth you defined in `my_est`.
 
-```{r}
+
+```r
 # uncomment this ggplot code to get started
 
 #ggplot(asimdat, aes(x = x, y = kde(x))) + # play with the kde function! h = ?
