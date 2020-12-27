@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Raven McKnight</title>
-    <link>https://ravenmcknight.com/authors/admin/</link>
-    <description>Recent content on Raven McKnight</description>
+    <title>Academic on Raven McKnight</title>
+    <link>https://ravenmcknight.com/tags/academic/</link>
+    <description>Recent content in Academic on Raven McKnight</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Raven McKnight</copyright>
     <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://ravenmcknight.com/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://ravenmcknight.com/tags/academic/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -293,18 +293,6 @@ $$&lt;/p&gt;
 \textbf{AMISE}(\hat{f}_n(s)) = \int \left(\frac{t^2h^4}{4}\left[f&amp;rdquo;(s)\right]^2 +  \frac{z}{nh}f(s) \right) dx
 $$
 It&amp;rsquo;s possible to optimize AMISE in terms of $h$ to get the optimal bandwidth across an entire sample. We won&amp;rsquo;t ask you to do this &amp;ndash; it&amp;rsquo;s definitely a challenge problem! In the end, you&amp;rsquo;d find that the optimal $h$ is dependent upon $\int \left[f&amp;rdquo;(x)\right]^2 dx$, or the curvature of the underlying PDF. Many recent advancements in KDE studies have been in the realm of estimating AMISE or the underlying curvature in order to optimize $h$.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://ravenmcknight.com/authors/admin/</link>
-      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://ravenmcknight.com/authors/admin/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m a recent graduate of &lt;a href=&#34;https://www.macalester.edu/&#34; target=&#34;_blank&#34;&gt;Macalester College&lt;/a&gt; where I studied statistics with minors in geography and creative writing. Right now, I work at &lt;a href=&#34;https://www.metrotransit.org/home&#34; target=&#34;_blank&#34;&gt;Metro Transit&lt;/a&gt; as a Research and Analytics data science intern. At this position, I got interested in transit demand modeling and completed a statistics honors thesis on fitting hierarchical spatial Bayesian models to Twin Cities bus ridership. I&amp;rsquo;m interested in continuing work like this and in topics like spatial statistics, geographic data science, and reproducible research.&lt;/p&gt;
-
-&lt;p&gt;Outside of work, I love applying data science skills to new projects, like the &lt;a href=&#34;https://www.nga.gov/&#34; target=&#34;_blank&#34;&gt;National Gallery of Art&amp;rsquo;s&lt;/a&gt; first &lt;a href=&#34;https://www.nga.gov/audio-video/audio/datathon.html&#34; target=&#34;_blank&#34;&gt;datathon&lt;/a&gt;. My team explored gender diversity in the Gallery&amp;rsquo;s collection and presented to Gallery curators and staff! When I&amp;rsquo;m not thinking about statistics, I love to read and write, knit, and rock climb.&lt;/p&gt;
 </description>
     </item>
     
