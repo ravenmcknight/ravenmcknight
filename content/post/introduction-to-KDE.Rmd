@@ -1,5 +1,7 @@
 ---
 title: "Kernel Density Estimation"
+output:
+  html_document: default
 ---
 ```{r echo = FALSE}
 # this code chunk installs and loads all the libraries you'll need for the activity
