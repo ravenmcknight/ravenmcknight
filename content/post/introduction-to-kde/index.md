@@ -20,7 +20,7 @@ image:
   placement: 2
   caption: 
   focal_point: ""
-  preview_only: false
+  preview_only: true
 ---
 
 # Introduction
@@ -59,15 +59,15 @@ $$
 
 This is the kernel density estimator at a *single* point. To estimate an entire PDF, we apply the kernel to each point in our sample. The procedure is as follows: 
 
-1. Apply the kernel function each data point in our sample
+First, we apply the kernel function each data point in our sample. In the figure below, the blue points are our sample and the black lines are the kernel at each point. 
 
 ![](img/step1.png)
 
-2. Sum all $n$ kernel functions
+Next, we sum all $n$ kernel functions.
 
 ![](img/step2.png)
 
-3. Divide by $n$. Because each kernel function integrates to one, the resulting KDE will still integrate to one. 
+Finally, we divide by $n$. Because each kernel function integrates to one, the resulting KDE will still integrate to one. 
 
 ![](img/step3.png)
 
@@ -84,8 +84,13 @@ Try plotting your calculated kernel density estimate using ggplot. You can compa
   <summary>Click for our solution! </summary>
   
   ```{r}
+# simulate some data to use 
+set.seed(455)
+asimdat <- rchisq(n = 100, df = 5)
+asimdat <- data.frame(x = asimdat)
+  
 my_est <- function(x, xi = 5, h = 0.5){
-  # put your estimate here!
+  # your estimate
    1/((100 * h) *sqrt(2*pi)) * exp(-1/2 * ((x - xi)/h)^2) 
 }
 
@@ -99,16 +104,12 @@ kde <- function(x, x_i = 5, h = 0.5){
   colSums(kern)
 }
 
-
-# uncomment lines in this ggplot code as you finish the functions below
-
 ggplot(asimdat, aes(x=x)) +
   theme_minimal() +
   geom_density() +   # generic geom_density
   geom_density(bw = 0.5, kernel = "gaussian", color = "blue") + #closer to your estimator
   stat_function(fun = my_est, color = "red")  + # your estimate at s = 5
-  geom_line(aes(x = x, y = kde(x)), color = "pink") + # and your overall estimate!
-  NULL 
+  geom_line(aes(x = x, y = kde(x)), color = "pink") # and your overall estimate!
 ```
 
 ![](img/activity1_2.png)
@@ -141,6 +142,27 @@ There's an analogy here with Bayesian priors -- choosing $h$ lets us choose how 
 #### Activity 2
 
 Using the kernel you defined above, plot a KDE estimate using various values for $h$. You can do so by updating the bandwidth you defined in `my_est`. For comparison, you can also use the parameter `bw` within a `geom_density`. How might you choose an optimal bandwidth?
+
+<details>
+  <summary> Example plots </summary>
+  
+  We can get KDE estimates using the KDE function we wrote above. 
+  ```{r}
+ggplot(asimdat, aes(x = x, y = kde(2))) +
+  geom_line() + theme_minimal()
+  ```
+  
+  ![](img/activity2_1.png)
+  
+  Or, more simply, we can use the built in `geom_density` function.
+  
+  ```{r}
+ggplot(asimdat, aes(x = x)) +
+  geom_density(bw = 2) + theme_minimal()
+```
+  
+  ![](img/activity2_2.png)
+</details>
 
 # Bias, Variance, MSE
 
@@ -195,6 +217,13 @@ where $t = \int u^2 K(u)du$.
 
 #### Activity 3
 What happens to bias as bandwidth $h$ increases/decreases? 
+
+<details>
+  <summary> Answer </summary>
+  
+  As $h$ increases, bias increases (and vice versa).
+</details>
+
 ## Variance
 The proof for variance is very similar to the proof for bias. This proof is possible because $K$ is symmetric about 0. Feel free to work through this proof more on your own!
 
@@ -234,6 +263,13 @@ where $z = \int K^2(u) du$.
 
 #### Activity 4
 What happens to variance as $h$ changes? As $n$ changes?
+
+<details>
+  <summary> Answer </summary>
+  
+  As $h$ increases, variance decreases (and vice versa).
+  
+</details>
 
 #### Activity 5
 Given the Bias and Variance above, find the Mean Squared Error of our estimator. Recall that the formula for MSE is $Var() + Bias^2()$. 
