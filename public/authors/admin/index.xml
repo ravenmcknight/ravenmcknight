@@ -51,9 +51,9 @@
 
 &lt;p&gt;Given data $x = (x_1, x_2, \ldots, x_n)$, a kernel function $K$, and a selected bandwidth $h$, the kernel density estimate at point $s$ is defined&lt;/p&gt;
 
-&lt;p&gt;$$
-\hat{f}_{n(s)} = \frac{1}{nh} \sum K (\frac{x_i - s}{h})
-$$&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$$
+\hat{f}_{n(s)} = \frac{1}{nh} \sum_{i = 1}^n K (\frac{x_i - s}{h})
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;This is the kernel density estimator at a &lt;em&gt;single&lt;/em&gt; point. To estimate an entire PDF, we apply the kernel to each point in our sample. The procedure is as follows:&lt;/p&gt;
 
@@ -167,52 +167,52 @@ ggplot(asimdat, aes(x=x)) +
 
 &lt;p&gt;Given observations $x_1, x_2, \ldots, x_n \overset{iid}{\sim} f$, we define the expected value of our estimator as follows:&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
 \begin{aligned}
-\mathbf{E}[\hat{f}_n(s)] &amp;amp;= \mathbf{E}\left[\frac{1}{nh} \displaystyle \sum K \left( \frac{x_i - s}{h}\right) \right] \\&lt;br /&gt;
-  &amp;amp;= \frac{1}{h}\mathbf{E}\left[K \left( \frac{x - s}{h}\right) \right] \\&lt;br /&gt;
+\mathbf{E}[\hat{f}_n(s)] &amp;amp;= \mathbf{E}\left[\frac{1}{nh} \displaystyle \sum_{i=1}^n K \left( \frac{x_i - s}{h}\right) \right] \\
+  &amp;amp;= \frac{1}{h}\mathbf{E}\left[K \left( \frac{x - s}{h}\right) \right] \\
   &amp;amp;= \frac{1}{h} \int K\left( \frac{x - s}{h}\right) f(x) dx
 \end{aligned}
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;This first line follows simply from the definitions of kernel density estimators and expected value.&lt;/p&gt;
 
 &lt;p&gt;Next, we let $u = \frac{x - s}{h}$ and substitute:&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
 \mathbf{E}[\hat{f}_n(s)] = \frac{1}{h} \int K\left( u\right) f(hu + s) du
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Then, we apply the 2nd order Taylor expansion for $f(hu + s)$ about $h = 0$. Omitting several steps of algebra, our Taylor expansion can be written&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
 \begin{aligned}
-f(hu + s) &amp;amp;=  f(s) + \frac{f&amp;rsquo;(s)}{1!}(u)(h-0) + \frac{f&amp;rdquo;(s)}{2!}(u^2)(h-0)^2 + o(h^2) \\&lt;br /&gt;
-    &amp;amp;= f(s) + huf&amp;rsquo;(s) + \frac{h^2u^2}{2}f&amp;rdquo;(s) + o(h^2)
+f(hu + s) &amp;amp;=  f(s) + \frac{f&#39;(s)}{1!}(u)(h-0) + \frac{f&#39;&#39;(s)}{2!}(u^2)(h-0)^2 + o(h^2) \\
+    &amp;amp;= f(s) + huf&#39;(s) + \frac{h^2u^2}{2}f&#39;&#39;(s) + o(h^2)
 \end{aligned}
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;where $o(h^2)$ is some function which approaches zero as $h$ approaches infinity. Technically, this $o()$ notation indications that $o(h^2)$ becomes negligible compared to $h^2$ as $h \rightarrow 0$. &lt;strong&gt;For our purposes, we assume $o(h^2) \rightarrow 0$ as $h \rightarrow 0$&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;We plug the Taylor expansion into our expected value above and simplify via algebra.&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
 \begin{aligned}
-\mathbf{E}[\hat{f}_n(s)] &amp;amp; = \int K(u) \left[f(s) + huf&amp;rsquo;(s) + \frac{h^2u^2}{2}f&amp;rdquo;(s) + o(h^2)\right] du \\&lt;br /&gt;
-    &amp;amp; = f(s)\int K(u) du + hf&amp;rsquo;(s)\int uK(u) du +  \frac{h^2}{2}f&amp;rdquo;(s)\int u^2 K(u)du  + o(h^2) \\&lt;br /&gt;
-    &amp;amp; = f(s) + \frac{h^2}{2}f&amp;rdquo;(s)\int u^2 K(u)du + o(h^2)
+\mathbf{E}[\hat{f}_n(s)] &amp;amp; = \int K(u) \left[f(s) + huf&#39;(s) + \frac{h^2u^2}{2}f&#39;&#39;(s) + o(h^2)\right] du \\
+    &amp;amp; = f(s)\int K(u) du + hf&#39;(s)\int uK(u) du +  \frac{h^2}{2}f&#39;&#39;(s)\int u^2 K(u)du  + o(h^2) \\
+    &amp;amp; = f(s) + \frac{h^2}{2}f&#39;&#39;(s)\int u^2 K(u)du + o(h^2)
 \end{aligned}
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;We can plug this into the definition of bias such that&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
 \begin{aligned}
-\textbf{Bias}(\hat{f}_n(s)) &amp;amp;= E[\hat{f}_n(s)] - f(s) \\&lt;br /&gt;
-    &amp;amp;= \frac{h^2}{2}f&amp;rdquo;(s)\int u^2 K(u)du + o(h^2) \\&lt;br /&gt;
-    &amp;amp;= \frac{t \cdot h^2}{2}f&amp;rdquo;(s) + o(h^2)
+\textbf{Bias}(\hat{f}_n(s)) &amp;amp;= E[\hat{f}_n(s)] - f(s) \\
+    &amp;amp;= \frac{h^2}{2}f&#39;&#39;(s)\int u^2 K(u)du + o(h^2) \\
+    &amp;amp;= \frac{t \cdot h^2}{2}f&#39;&#39;(s) + o(h^2)
 \end{aligned}
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;where $t = \int u^2 K(u)du$.&lt;/p&gt;
 
@@ -230,37 +230,37 @@ $$&lt;/p&gt;
 
 &lt;p&gt;The proof for variance is very similar to the proof for bias. This proof is possible because $K$ is symmetric about 0. Feel free to work through this proof more on your own!&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
 \begin{aligned}
     \mathbf{Var}(\hat{f}_n(s))
     &amp;amp;=
-    \mathbf{Var} \left(\frac{1}{nh} \displaystyle \sum K \left(\frac{x_i - s}{h}\right)\right) \\&lt;br /&gt;
-    &amp;amp;= \frac{1}{nh^2} \left(\mathbf{E}\left[ K^2 \left( \frac{x - s}{h}\right) \right] - \mathbf{E}\left[ K \left( \frac{x - s}{h}\right)\right]^2\right)\\&lt;br /&gt;
+    \mathbf{Var} \left(\frac{1}{nh} \displaystyle \sum_{i=1}^n K \left(\frac{x_i - s}{h}\right)\right) \\
+    &amp;amp;= \frac{1}{nh^2} \left(\mathbf{E}\left[ K^2 \left( \frac{x - s}{h}\right) \right] - \mathbf{E}\left[ K \left( \frac{x - s}{h}\right)\right]^2\right)\\\\\\
     &amp;amp;\leq
-    \frac{1}{nh^2} \mathbf{E}\left[ K^2 \left( \frac{x - s}{h}\right) \right] \\&lt;br /&gt;
+    \frac{1}{nh^2} \mathbf{E}\left[ K^2 \left( \frac{x - s}{h}\right) \right] \\
     &amp;amp;=
     \frac{1}{nh^2} \int K^2 \left( \frac{x - s}{h}\right)f(x) dx
   \end{aligned}
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;As above, we substitute $u = \frac{x-s}{h}$ and plug in a 1st order Taylor expansion of $f(hu + s)$.&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
 \begin{aligned}
     \mathbf{Var}(\hat{f}_n(s))
     &amp;amp;\leq
-    \frac{1}{nh^2} \int K^2(u)f(hu + s)hdu \\&lt;br /&gt;
+    \frac{1}{nh^2} \int K^2(u)f(hu + s)hdu \\
     &amp;amp;=
-    \frac{1}{nh} \int K^2(u)f(hu + s)du \\&lt;br /&gt;
+    \frac{1}{nh} \int K^2(u)f(hu + s)du \\
     &amp;amp;=
-    \frac{1}{nh} \int K^2(u)[f(s) + huf&amp;rsquo;(s) + o(h)]du  \\&lt;br /&gt;
+    \frac{1}{nh} \int K^2(u)[f(s) + huf&#39;(s) + o(h)]du  \\
     &amp;amp;=
-    \frac{1}{nh} \bigg(f(s)\int K^2(u) du + hf&amp;rsquo;(s)\int uK^2(u) du + o(h)\bigg) \\&lt;br /&gt;
-    \mathbf{Var}(\hat{f}_n(s)) &amp;amp;\leq \frac{f(s)}{nh}\int K^2(u) du + o\bigg(\frac{1}{nh}\bigg) \\&lt;br /&gt;
+    \frac{1}{nh} \bigg(f(s)\int K^2(u) du + hf&#39;(s)\int uK^2(u) du + o(h)\bigg) \\
+    \mathbf{Var}(\hat{f}_n(s)) &amp;amp;\leq \frac{f(s)}{nh}\int K^2(u) du + o\bigg(\frac{1}{nh}\bigg) \\
     &amp;amp;=
     \frac{z}{nh}f(s) + o\bigg(\frac{1}{nh}\bigg)
   \end{aligned}
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;where $z = \int K^2(u) du$.&lt;/p&gt;
 
@@ -281,16 +281,16 @@ $$&lt;/p&gt;
 
 &lt;p&gt;&lt;details&gt;
   &lt;summary&gt; Click to see our work! &lt;/summary&gt;
-$$
+&lt;code&gt;$$
 \begin{aligned}
     MSE(\hat{f}_n(s)) &amp;amp;=
-    Bias^2(\hat{f}_n(s)) + Var(\hat{f}_n(s)) \\&lt;br /&gt;
+    Bias^2(\hat{f}_n(s)) + Var(\hat{f}_n(s)) \\
     &amp;amp;=
-    \left(\frac{th^2}{2}f&amp;rdquo;(s) + o(h^2) \right)^2 +  \frac{z}{nh}f(s) + o\left(\frac{1}{nh}\right) \\&lt;br /&gt;
+    \left(\frac{th^2}{2}f&#39;&#39;(s) + o(h^2) \right)^2 +  \frac{z}{nh}f(s) + o\left(\frac{1}{nh}\right) \\
     &amp;amp;=
-    \frac{t^2h^4}{4}\left[f&amp;rdquo;(s)\right]^2 +  \frac{z}{nh}f(s) + o(h^4) + o\left(\frac{1}{nh}\right)
+    \frac{t^2h^4}{4}\left[f&#39;&#39;(s)\right]^2 +  \frac{z}{nh}f(s) + o(h^4) + o\left(\frac{1}{nh}\right)
   \end{aligned}
-$$&lt;/p&gt;
+$$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/details&gt;&lt;/p&gt;
 
@@ -305,31 +305,341 @@ $$&lt;/p&gt;
 &lt;p&gt;&lt;details&gt;
   &lt;summary&gt; Click to see our work! &lt;/summary&gt;&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
   \begin{aligned}
-  \frac{\partial}{\partial h} \textbf{AMSE}(\hat{f}_n(s)) &amp;amp;= \frac{\partial}{\partial h}\left(\frac{t^2}{4}\left[f&amp;rdquo;(s)\right]^2\right)\mathbf{h^4} +  \left(\frac{z}{n}f(s)\right)\mathbf{\frac{1}{h}} \\&lt;br /&gt;
-  &amp;amp;= \left(t^2\left[f&amp;rdquo;(s)\right]^2\right)\mathbf{h^3} - \left(\frac{z}{n}f(s)\right)\mathbf{\frac{1}{h^2}}
+  \frac{\partial}{\partial h} \textbf{AMSE}(\hat{f}_n(s)) &amp;amp;= \frac{\partial}{\partial h}\left(\frac{t^2}{4}\left[f&#39;&#39;(s)\right]^2\right)\mathbf{h^4} +  \left(\frac{z}{n}f(s)\right)\mathbf{\frac{1}{h}} \\
+  &amp;amp;= \left(t^2\left[f&#39;&#39;(s)\right]^2\right)\mathbf{h^3} - \left(\frac{z}{n}f(s)\right)\mathbf{\frac{1}{h^2}}
   \end{aligned}
-  $$&lt;/p&gt;
+  $$&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;We can rewrite this as follows to solve for the optimal value of $h$, $h_{opt}$&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;p&gt;&lt;code&gt;$$
   \begin{aligned}
-  0 &amp;amp;= \left(t^2\left[f&amp;rdquo;(s)\right]^2\right)\mathbf{h^5} -  \left(\frac{z}{n}f(s)\right) \\&lt;br /&gt;
-  \mathbf{h_{opt}} &amp;amp;= \left(\frac{zf(s)}{nt^2\left[f&amp;rdquo;(s)\right]^2}\right)^{\frac{1}{5}}
+  0 &amp;amp;= \left(t^2\left[f&#39;&#39;(s)\right]^2\right)\mathbf{h^5} -  \left(\frac{z}{n}f(s)\right) \\
+  \mathbf{h_{opt}} &amp;amp;= \left(\frac{zf(s)}{nt^2\left[f&#39;&#39;(s)\right]^2}\right)^{\frac{1}{5}} 
   \end{aligned}
-  $$
+  $$&lt;/code&gt;
 &lt;/details&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;an-open-question-amise&#34;&gt;An Open Question: AMISE&lt;/h2&gt;
 
 &lt;p&gt;The optimization in Activity 6 optimizes $h$ at a given $x$ value. A common method for optimizing $h$ across an entire distribution is using the asymptotic mean integrated square error (AMISE). As the name suggests, we can define the AMISE as follows:&lt;/p&gt;
 
-&lt;p&gt;$$
-\textbf{AMISE}(\hat{f}_n(s)) = \int \left(\frac{t^2h^4}{4}\left[f&amp;rdquo;(s)\right]^2 +  \frac{z}{nh}f(s) \right) dx
-$$
-It&amp;rsquo;s possible to optimize AMISE in terms of $h$ to get the optimal bandwidth across an entire sample. We won&amp;rsquo;t ask you to do this &amp;ndash; it&amp;rsquo;s definitely a challenge problem! In the end, you&amp;rsquo;d find that the optimal $h$ is dependent upon $\int \left[f&amp;rdquo;(x)\right]^2 dx$, or the curvature of the underlying PDF. Many recent advancements in KDE studies have been in the realm of estimating AMISE or the underlying curvature in order to optimize $h$.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$$
+\textbf{AMISE}(\hat{f}_n(s)) = \int \left(\frac{t^2h^4}{4}\left[f&#39;&#39;(s)\right]^2 +  \frac{z}{nh}f(s) \right) dx
+$$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s possible to optimize AMISE in terms of $h$ to get the optimal bandwidth across an entire sample. We won&amp;rsquo;t ask you to do this &amp;ndash; it&amp;rsquo;s definitely a challenge problem! In the end, you&amp;rsquo;d find that the optimal $h$ is dependent upon $\int \left[f&amp;rdquo;(x)\right]^2 dx$, or the curvature of the underlying PDF. Many recent advancements in KDE studies have been in the realm of estimating AMISE or the underlying curvature in order to optimize $h$.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CARBayes Tutorial</title>
+      <link>https://ravenmcknight.com/post/carbayes-tutorial/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/post/carbayes-tutorial/</guid>
+      <description>
+
+&lt;p&gt;This is a tutorial on fitting spatial Bayesian models using the R package &lt;code&gt;CARBayes&lt;/code&gt;. It was written in collaboration with &lt;a href=&#34;https://www.katiejolly.io/portfolio/&#34; target=&#34;_blank&#34;&gt;Katie Jolly&lt;/a&gt; at Macalester! Here, we&amp;rsquo;ll help walk you through how to start an analysis of spatial data using the &lt;code&gt;CARBayes&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;h1 id=&#34;introduction-to-spatial-data&#34;&gt;Introduction to spatial data&lt;/h1&gt;
+
+&lt;p&gt;Spatial data is everywhere. It can describe geography, demographics, epidemiology, and more. In fact, a lot of data we don’t always think of as spatial, such as voting records, can also be understood as describing variation across space. Unfortunately, spatial data breaks one of the fundamental assumptions of statistics&amp;ndash;that individual observations are independent from one another.&lt;/p&gt;
+
+&lt;p&gt;We know that spatial data isn’t independent intuitively: the price of housing or risk of contracting a disease in one county, for example, is likely related to the county next door. This understanding of spatial data allows us to borrow strength from neighbors in our analysis. If we’re missing data for a county, we can make some inference about the data we’re missing based on the counties around it.&lt;/p&gt;
+
+&lt;p&gt;To appropriately model spatial data, we need to take this &lt;em&gt;spatial autocorrelation&lt;/em&gt; into account. Spatial autocorrelation is generally represented as a value between -1 and 1, where 1 represents clustering and -1 represents dispersion.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/spat_cor.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this tutorial, we’ll use the hierarchical nature of spatial data to our advantage. Hierarchical data is data with some underlying structure. Common examples of hierarchical data are longitudinal data, were we have multiple observations on multiple subjects over time, or in our case, spatial data, where data inherits the spatial structure of geography.&lt;/p&gt;
+
+&lt;h1 id=&#34;bayesian-methods&#34;&gt;Bayesian Methods&lt;/h1&gt;
+
+&lt;p&gt;The methods we’ll use in this tutorial are drawn from Bayesian Statistics, which allow us to incorporate prior understanding of our data into our models. The idea of Bayesian methods is to reach a balance between our prior understandings and incoming information in the form of data. For more on Bayes, check out &lt;a href=&#34;https://www.analyticsvidhya.com/blog/2016/06/bayesian-statistics-beginners-simple-english/&#34; target=&#34;_blank&#34;&gt;this article!&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/bayes_diagram.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Bayesian methods are particularly suited to modelling hierarchical data because we can account for the hierarchy using our priors. For example, a simple hierarchical model might say that the percent of a county who voted for Trump in the 2016 election is centered around a different mean value for each state (top layer of the model) and the mean value for each state is based on some other parameters, such as median income (priors).&lt;/p&gt;
+
+&lt;h1 id=&#34;conditional-autoregressive-models&#34;&gt;Conditional autoregressive models&lt;/h1&gt;
+
+&lt;p&gt;In this tutorial, we’ll fit conditional autoregressive (CAR) models. These are Bayesian models used to describe data in non-overlapping areal units, such as counties or states. CAR models are often used to model things like disease rates or ecological phenomena, but they can also be used to model housing prices, for example.&lt;/p&gt;
+
+&lt;p&gt;If $Y_i$ is the response for area $i$ and $x_i$ is a set of covariates or characteristics in the $i$th area, the formal model statement is as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$$
+\begin{aligned}
+E(Y_i |  Y_j, j\not= i) &amp;amp;= x_i^T\beta + \sum^n_{j=1}c_{ij}(Y_j - x^T_j\beta) \\\\\\
+Var(Y_i |  Y_j, j\not= i) &amp;amp;= \tau^2_i = \tau^2/w_{i.}
+\end{aligned}
+$$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;where &lt;code&gt;$w_{i.} = \sum^n_{j=1}w_{ij}$&lt;/code&gt;, &lt;code&gt;$c_{ij}$&lt;/code&gt; is nonzero only if &lt;code&gt;$Y_j \in N_i$&lt;/code&gt;, and $N_i$ is the neighborhood of &lt;code&gt;$Y_i$&lt;/code&gt;. &lt;code&gt;$c_{ij}$&lt;/code&gt; is typically &lt;code&gt;$\lambda w_{ij}/w{i}$&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this tutorial, we’ll fit one of the most simple (and flexible) CAR models. This model is a Gaussian Markov random field (GMRF) model proposed by Besag (we’ll refer to it as the Besag model). If you’re familiar with time series models, the most basic GMRF is the AR(1) process. In simple terms, a Gaussian random field is a random function over space with Gaussian probability distributions. A Gaussian &lt;em&gt;Markov&lt;/em&gt; random field means that we are only interested in locations one “step” away from our current location &amp;ndash; in this context of spatial data, this means that we’re interested in neighbors which directly share a boundary.&lt;/p&gt;
+
+&lt;p&gt;The Besag model generally looks like a random effects model:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$$
+\begin{aligned}
+log(\hat Y) &amp;amp;=\mu+z_i^T\beta + b_i \\
+\mu &amp;amp;= \text{global mean} \\
+z_i\beta_i &amp;amp;= \text{vector of covariates &amp;amp; corresponding coefficient} \\
+b_i &amp;amp;= \text{spatial random effect}
+\end{aligned}
+$$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;When we define a prior distribution the default is often as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$$
+\mu \sim N(0, \frac{1}{100^2}) \\
+\beta \sim N(0, \frac{1}{100^2}) \\
+b_i \sim \text{some spatial dependency model}
+$$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The Besag model considers &lt;code&gt;$b_i$&lt;/code&gt; to be normally distributed with the mean being a function of the neighboring values, the set &lt;code&gt;$\delta i$&lt;/code&gt; and the variance proportional to the number of neighbors, &lt;code&gt;$n_{\delta i}$&lt;/code&gt;. In notation, it looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$$
+\begin{aligned}
+b_i|b_{-i}, \tau_b &amp;amp;\sim N(\frac{1}{n_{\delta i}}\sum_{j \in \delta i}b_j, \frac{1}{n_{\delta i} \tau_b}) \\
+\tau_b &amp;amp;= \text{precision parameter}\\
+b_{-i} &amp;amp;= (b_1, ... b_{i-1}, b_{i+1},...,b_n)^T
+\end{aligned}
+$$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;There are several natural progressions from the Besag model. For more accurate parameter estimates in the case of overdispersion (excessive variance) or unstructured errors (errors with no spatial autocorrelation), we can use the Besag-York-Mollíe model. Further, to account for spatial autocorrelation and overdispersion with two separate parameters, we can use the Leroux model. More information on each of these models can be found &lt;a href=&#34;https://arxiv.org/pdf/1601.01180.pdf?fbclid=IwAR3dKo4uDNweY-otyPAMKnBa99RLt7sPMtEi-Kd2UIx8gkcpas6OuZ84jqs&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;data-and-packages&#34;&gt;Data and packages&lt;/h1&gt;
+
+&lt;p&gt;We&amp;rsquo;ll fit these models using the &lt;code&gt;CARbayes&lt;/code&gt; package in R. This package allows us to fit several univariate and multivariate CAR models and make inference in a Bayesian context using Markov chain Monte Carlo (MCMC) simulations. The package supports response variable from Gaussian, multinomial, Poison (or count), and zero-inflated Poisson distributions. Spatial autocorrelation is modeled using random effects in most cases, and each function in the package corresponds to a different prior or model type. Reacall we&amp;rsquo;ll be using Besag priors, which assume a constant degree of spatial autocorrelation among the observations. The random effects are distributed normally around the mean of the neighbors and the variance is proportional to the size of the neighborhood. There is a lot of potential complexity built into the &lt;code&gt;CARbayes&lt;/code&gt; package but for this tutorial, we’ll focus on simple application and interpretation!&lt;/p&gt;
+
+&lt;p&gt;You&amp;rsquo;ll need the packages below to run this tutorial on your own. This code chunk makes sure that all of the packages are installed and loaded!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;packages &amp;lt;- c(&amp;quot;CARBayes&amp;quot;, &amp;quot;sf&amp;quot;, &amp;quot;tidycensus&amp;quot;, &amp;quot;janitor&amp;quot;, &amp;quot;tidyverse&amp;quot;, &amp;quot;spData&amp;quot;, &amp;quot;spdep&amp;quot;)
+
+miss_pkgs &amp;lt;- packages[!packages %in% installed.packages()[,1]]
+
+if(length(miss_pkgs) &amp;gt; 0){
+  install.packages(miss_pkgs)
+}
+
+invisible(lapply(packages, library, character.only = TRUE))
+
+rm(miss_pkgs, packages)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We will use a &lt;a href=&#34;https://rdrr.io/cran/spData/man/columbus.html&#34; target=&#34;_blank&#34;&gt;shapefile of Columbus, OH neighborhoods&lt;/a&gt; from the &lt;code&gt;spData&lt;/code&gt; package. In total there are 49 neighborhoods and 22 variables and the data is from 1980.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;columbus &amp;lt;- columbus_sf &amp;lt;- st_read(system.file(&amp;quot;shapes/columbus.shp&amp;quot;, package=&amp;quot;spData&amp;quot;)[1])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It includes a variety of characteristics about the homes and people in each neighborhood.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Variable&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;NEIG&lt;/td&gt;
+&lt;td&gt;neighborhood id value (1-49)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;HOVAL&lt;/td&gt;
+&lt;td&gt;median housing value (in $1,000)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;INC&lt;/td&gt;
+&lt;td&gt;household income (in $1,000)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;CRIME&lt;/td&gt;
+&lt;td&gt;number of residential burglaries and vehicle thefts per thousand households&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;OPEN&lt;/td&gt;
+&lt;td&gt;open space in neighborhood (mi^2)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;PLUMB&lt;/td&gt;
+&lt;td&gt;percentage housing units without plumbing&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DISCBD&lt;/td&gt;
+&lt;td&gt;distance to the central business district (miles)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;We will model the relationship between crime &lt;code&gt;CRIME&lt;/code&gt; and home value &lt;code&gt;HOVAL&lt;/code&gt;. In order to see whether or not spatial models are a necessary complexity, we will do some exploratory data analysis. If we do not see clear spatial patterns, we can use Generalized Linear Models and do not need to account for the spatial autocorrelation.&lt;/p&gt;
+
+&lt;p&gt;The first step in our exploration is to plot maps of our variables of interest.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;map_theme &amp;lt;- theme_minimal() + theme(text = element_text(color = &amp;quot;#60717a&amp;quot;), panel.grid = element_line(&amp;quot;transparent&amp;quot;), axis.text = element_blank()) 
+
+map_colors &amp;lt;- scale_fill_gradientn(colors = c(&amp;quot;#FFBD71&amp;quot;, &amp;quot;#FCA464&amp;quot;, &amp;quot;#F87D7B&amp;quot;, &amp;quot;#D04A73&amp;quot;), na.value = &amp;quot;#e1e5e8&amp;quot;)
+
+ggplot(columbus) +
+  geom_sf(aes(fill = HOVAL)) +
+  map_theme +
+  map_colors +
+  labs(title = &amp;quot;Median home values in Columbus, OH neighborhoods, 1980&amp;quot;, fill = &amp;quot;Home value in 1,000s&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/medianhomevals.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(columbus) +
+  geom_sf(aes(fill = CRIME)) +
+  map_theme +
+  map_colors +
+  labs(title = &amp;quot;Residential crime in Columbus, OH neighborhoods, 1980&amp;quot;, fill = &amp;quot;Residential burglaries and vehicle \nthefts per thousand households&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/rescrime.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In these maps we can see two different important characteristics. First, it looks like there is spatial clustering for each of the variables individually. We will quantify this with Moran&amp;rsquo;s I. Second, we see an inverse relationship between these two variables. In context, this means that high home values and low residential crime rates are often found in the same neighborhood.&lt;/p&gt;
+
+&lt;p&gt;Before fitting a model, we will test the degree of spatial correlation with Moran&amp;rsquo;s I. A priori we can see that the pattern is likely clustering rather than dispersion, so we&amp;rsquo;ll conduct a one-tailed hypothesis test to see if the clustering is greater than random.&lt;/p&gt;
+
+&lt;p&gt;$$H_O: \text{no spatial clustering} &lt;br /&gt;
+H_A: \text{spatial clustering}$$&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;col_sp &amp;lt;- as(columbus, &amp;quot;Spatial&amp;quot;)
+col_nb &amp;lt;- poly2nb(col_sp) # queen neighborhood
+col_listw &amp;lt;- nb2listw(col_nb, style = &amp;quot;B&amp;quot;) # listw version of the neighborhood
+W &amp;lt;- nb2mat(col_nb, style = &amp;quot;B&amp;quot;) # binary structure
+moran.mc(col_sp$HOVAL, listw = col_listw, nsim = 999, alternative = &amp;quot;greater&amp;quot;) # moran&#39;s I test HOVAL
+
+
+# Monte-Carlo simulation of Moran I
+# 
+# data:  col_sp$HOVAL 
+# weights: col_listw  
+# number of simulations + 1: 1000 
+# 
+# statistic = 0.22134, observed rank = 991, p-value = 0.009
+# alternative hypothesis: greater
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For home value, the &lt;code&gt;moran.mc&lt;/code&gt; functionr returns a test statistic of 0.22134 (moderate positive correlation) and based on our Monte Carlo simulations of possible random patterns we have a p-value of 0.008. We reject the null hypothesis because there is substantial evidence of spatial clustering. Now we will repeat this process for crime. If both of these show evidence of clustering then we know we should use spatial models.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;moran.mc(col_sp$CRIME, listw = col_listw, nsim = 999, alternative = &amp;quot;greater&amp;quot;) # moran&#39;s I test CRIME
+
+# Monte-Carlo simulation of Moran I
+# 
+# data:  col_sp$CRIME 
+# weights: col_listw  
+# number of simulations + 1: 1000 
+# 
+# statistic = 0.51546, observed rank = 1000, p-value = 0.001
+# alternative hypothesis: greater
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For crime, the test statistic is 0.51546 (strong clustering) and based on our Monte Carlo simulations we have a p-value of 0.001. We reject the null hypothesis because there is substantial evidence of spatial relationships.&lt;/p&gt;
+
+&lt;h2 id=&#34;spatial-models&#34;&gt;Spatial models&lt;/h2&gt;
+
+&lt;p&gt;In order to better quantify the relationship between these two variables accounting for their spatial structure we will use the models proposed by Besag and implemented in &lt;code&gt;CARbayes&lt;/code&gt;. In order to run these models, we will use the weights matrix &lt;code&gt;W&lt;/code&gt; defined above and model &lt;code&gt;HOVAL&lt;/code&gt; by &lt;code&gt;CRIME&lt;/code&gt; from the &lt;code&gt;columbus&lt;/code&gt; data. In this model we assume a fixed spatial dependence parameter $\rho = 1$ which simplifies the Leroux model to a Besag model (both can be fit using the same function). This model takes around 30 seconds to fit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;model.hoval &amp;lt;- CARBayes::S.CARleroux(HOVAL ~ CRIME, data = columbus, W = W, family = &amp;quot;gaussian&amp;quot;, burnin = 20000, n.sample = 100000, thin = 10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;model.hoval
+
+# #################
+# #### Model fitted
+# #################
+# Likelihood model - Gaussian (identity link function) 
+# Random effects model - Leroux CAR
+# Regression equation - HOVAL ~ CRIME
+# Number of missing observations - 0
+# 
+# ############
+# #### Results
+# ############
+# Posterior quantities and DIC
+# 
+#               Median     2.5%    97.5% n.effective Geweke.diag
+# (Intercept)  60.6232  50.5268  70.5352      7684.7        -0.6
+# CRIME        -0.6338  -0.8887  -0.3754      8000.0         0.6
+# nu2         226.4746 157.6672 346.1224      7527.6         1.1
+# tau2          0.0084   0.0021   0.0962      1261.3        -0.9
+# rho           0.3730   0.0170   0.9148      3293.0         1.0
+# 
+# DIC =  410.0037       p.d =  2.895076       LMPL =  -205.92 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In a Bayesian analysis we are simulating values from the posterior distribution of our parameters. If the middle 95% of distribution (the credible interval) does not cross zero then we can say it is a significant predictor. In this case we are looking at the &lt;code&gt;CRIME&lt;/code&gt; parameter and we can see that the credible interval is below 0, meaning there is a significant negative or inverse relationship between crime and home value. The median value of the posterior distribution for &lt;code&gt;CRIME&lt;/code&gt; is -0.715, meaning that for every crime recorded in that neighborhood the home value (in thousands) decreases by 0.715. Contextually, this makes sense. If we wanted to compare this model to others, we would use the DIC value, which is 97.4. We would select the model with the lower DIC, but this method is only applicable when the posterior distribution is approximately multivariate normal.&lt;/p&gt;
+
+&lt;p&gt;We can extract all of the simulated $\beta_\text{crime}$ coefficients and plot them to see the distribution.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cbus_sim &amp;lt;- data_frame(beta_crime = as.vector(model.hoval$samples$beta[,2]))
+
+ggplot(cbus_sim, aes(x = beta_crime)) +
+  geom_density(fill = &amp;quot;#FFBD71&amp;quot;, color =&amp;quot;#FFBD71&amp;quot;) + 
+  geom_vline(xintercept = -0.8936, color = &amp;quot;#F87D7B&amp;quot;, size = 1.5) +
+  geom_vline(xintercept = -0.3690, color = &amp;quot;#F87D7B&amp;quot;, size = 1.5) + 
+  annotate(&amp;quot;text&amp;quot;, x = -0.65, y = 3.5, label = &amp;quot;Credible interval&amp;quot;, color = &amp;quot;#F87D7B&amp;quot;) + 
+  theme_minimal() +
+  theme(text = element_text(color = &amp;quot;#60717a&amp;quot;)) +
+  labs(title = &amp;quot;Posterior distribution of the crime coefficient&amp;quot;, x = &amp;quot;Beta&amp;quot;, y = &amp;quot;Density&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/posterior.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a good visual representation of the credible interval; we can see that our coefficient will almost never be 0!&lt;/p&gt;
+
+&lt;h2 id=&#34;evaluating-the-spatial-pattern-of-residuals&#34;&gt;Evaluating the spatial pattern of residuals&lt;/h2&gt;
+
+&lt;p&gt;We also want to test to make sure our residuals aren&amp;rsquo;t clustered. If they are, that means we are missing an important confounding variable. We can check for this clustering with the same Moran&amp;rsquo;s I test on our residual.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;moran.mc(x = as.vector(model.hoval$residuals$response), listw = col_listw, nsim = 9999, alternative = &amp;quot;greater&amp;quot;)
+
+# Monte-Carlo simulation of Moran I
+# 
+# data:  as.vector(model.hoval$residuals$response) 
+# weights: col_listw  
+# number of simulations + 1: 10000 
+# 
+# statistic = 0.17135, observed rank = 9819, p-value = 0.0181
+# alternative hypothesis: greater
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example we do see slight clustering in our residuals (I = 0.17), but that is likely because we only used one covariate to describe home patterns. In later iterations we would include more covariates in the model. We can also map the residuals to see where these clusters appear.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;columbus %&amp;gt;%
+  mutate(resid = model.hoval$residuals$response) %&amp;gt;%
+  ggplot(aes(fill = resid)) +
+  geom_sf() + 
+  map_theme +
+  map_colors +
+  labs(title = &amp;quot;Residuals from the CAR model&amp;quot;, subtitle = &amp;quot;home value ~ crime&amp;quot;, fill = &amp;quot;Residual&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/CARresid.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In order to choose our next covariate, we can start by thinking about what kinds of variables might explain this pattern in the residual. One idea might be to include distance to the Central Business District!&lt;/p&gt;
+
+&lt;h1 id=&#34;discussion&#34;&gt;Discussion&lt;/h1&gt;
+
+&lt;p&gt;The model we’ve fit in this tutorial are a great place to start with Bayesian CAR models. The Besag model gives us fairly familiar results: coefficients which we can interpret just as we might in a more basic linear regression context. However, it gives more accurate predictions because it accounts for the underlying structure in the data. There are many layers of complexity we can add to make these models do more for us. Many of those improvements simply require adding new parameters or constraints to the Besag model!&lt;/p&gt;
+
+&lt;p&gt;One limitation of these CAR models is that they are parametric. This could be a strength or a limitation depending on the data we’re interested in! The methods are also computationally expensive &amp;ndash; when working with large amounts of data or covariates, a single model can take several minutes to run. This is less a weakness of the methodology and more a symptom of working with complex spatial data.&lt;/p&gt;
+
+&lt;p&gt;As a package, &lt;code&gt;CARBayes&lt;/code&gt; is incredibly versatile. There are several other models and corresponding functions in the package which we haven’t discussed, so if the models presented here don’t fit your needs, check out the &lt;a href=&#34;https://cran.r-project.org/web/packages/CARBayes/vignettes/CARBayes.pdf&#34; target=&#34;_blank&#34;&gt;vignette&lt;/a&gt;! If you&amp;rsquo;ve got any other questions, feel free to reach out!&lt;/p&gt;
 </description>
     </item>
     

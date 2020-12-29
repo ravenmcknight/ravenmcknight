@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.3.1">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Raven McKnight">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A tutorial for fitting conditional autoregressive models in R using the CARBayes package.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ravenmcknight.com/post/carbayes-tutorial/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="rgb(235, 139, 133)">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora|Source Sans Pro:300&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.f7d303aff4837bd86256d35e3eec2922.css">
+
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-138632608-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://ravenmcknight.com/post/carbayes-tutorial/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Raven McKnight">
+  <meta property="og:url" content="https://ravenmcknight.com/post/carbayes-tutorial/">
+  <meta property="og:title" content="CARBayes Tutorial | Raven McKnight">
+  <meta property="og:description" content="A tutorial for fitting conditional autoregressive models in R using the CARBayes package."><meta property="og:image" content="https://ravenmcknight.com/img/icon-192.png">
+  <meta property="twitter:image" content="https://ravenmcknight.com/img/icon-192.png"><meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2019-05-02T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2019-05-02T00:00:00&#43;00:00">
+  
+
+  
+
+
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<script async type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  <title>CARBayes Tutorial | Raven McKnight</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Raven McKnight</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav mr-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/cv.pdf"><span>cv</span></a>
+        </li>
+
+        
+        
+
+      
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">CARBayes Tutorial</h1>
+
+  
+  <p class="page-subtitle">A tutorial for fitting conditional autoregressive models in R using the CARBayes package.</p>
+  
+
+  
+    
+
+
+
+<meta content="2019-05-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2019-05-02 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Raven McKnight</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>May 2, 2019</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    12 min read
+  </span>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/carbayes-tutorial/#disqus_thread"></a>
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://ravenmcknight.com/post/carbayes-tutorial/&amp;text=CARBayes%20Tutorial" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://ravenmcknight.com/post/carbayes-tutorial/&amp;t=CARBayes%20Tutorial" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=CARBayes%20Tutorial&amp;body=https://ravenmcknight.com/post/carbayes-tutorial/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://ravenmcknight.com/post/carbayes-tutorial/&amp;title=CARBayes%20Tutorial" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=CARBayes%20Tutorial%20https://ravenmcknight.com/post/carbayes-tutorial/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://ravenmcknight.com/post/carbayes-tutorial/&amp;title=CARBayes%20Tutorial" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>This is a tutorial on fitting spatial Bayesian models using the R package <code>CARBayes</code>. It was written in collaboration with <a href="https://www.katiejolly.io/portfolio/" target="_blank">Katie Jolly</a> at Macalester! Here, we&rsquo;ll help walk you through how to start an analysis of spatial data using the <code>CARBayes</code> package.</p>
+
+<h1 id="introduction-to-spatial-data">Introduction to spatial data</h1>
+
+<p>Spatial data is everywhere. It can describe geography, demographics, epidemiology, and more. In fact, a lot of data we don’t always think of as spatial, such as voting records, can also be understood as describing variation across space. Unfortunately, spatial data breaks one of the fundamental assumptions of statistics&ndash;that individual observations are independent from one another.</p>
+
+<p>We know that spatial data isn’t independent intuitively: the price of housing or risk of contracting a disease in one county, for example, is likely related to the county next door. This understanding of spatial data allows us to borrow strength from neighbors in our analysis. If we’re missing data for a county, we can make some inference about the data we’re missing based on the counties around it.</p>
+
+<p>To appropriately model spatial data, we need to take this <em>spatial autocorrelation</em> into account. Spatial autocorrelation is generally represented as a value between -1 and 1, where 1 represents clustering and -1 represents dispersion.</p>
+
+<p><img src="img/spat_cor.png" alt="" /></p>
+
+<p>In this tutorial, we’ll use the hierarchical nature of spatial data to our advantage. Hierarchical data is data with some underlying structure. Common examples of hierarchical data are longitudinal data, were we have multiple observations on multiple subjects over time, or in our case, spatial data, where data inherits the spatial structure of geography.</p>
+
+<h1 id="bayesian-methods">Bayesian Methods</h1>
+
+<p>The methods we’ll use in this tutorial are drawn from Bayesian Statistics, which allow us to incorporate prior understanding of our data into our models. The idea of Bayesian methods is to reach a balance between our prior understandings and incoming information in the form of data. For more on Bayes, check out <a href="https://www.analyticsvidhya.com/blog/2016/06/bayesian-statistics-beginners-simple-english/" target="_blank">this article!</a></p>
+
+<p><img src="img/bayes_diagram.jpg" alt="" /></p>
+
+<p>Bayesian methods are particularly suited to modelling hierarchical data because we can account for the hierarchy using our priors. For example, a simple hierarchical model might say that the percent of a county who voted for Trump in the 2016 election is centered around a different mean value for each state (top layer of the model) and the mean value for each state is based on some other parameters, such as median income (priors).</p>
+
+<h1 id="conditional-autoregressive-models">Conditional autoregressive models</h1>
+
+<p>In this tutorial, we’ll fit conditional autoregressive (CAR) models. These are Bayesian models used to describe data in non-overlapping areal units, such as counties or states. CAR models are often used to model things like disease rates or ecological phenomena, but they can also be used to model housing prices, for example.</p>
+
+<p>If $Y_i$ is the response for area $i$ and $x_i$ is a set of covariates or characteristics in the $i$th area, the formal model statement is as follows:</p>
+
+<p><code>$$
+\begin{aligned}
+E(Y_i |  Y_j, j\not= i) &amp;= x_i^T\beta + \sum^n_{j=1}c_{ij}(Y_j - x^T_j\beta) \\\\\\
+Var(Y_i |  Y_j, j\not= i) &amp;= \tau^2_i = \tau^2/w_{i.}
+\end{aligned}
+$$</code></p>
+
+<p>where <code>$w_{i.} = \sum^n_{j=1}w_{ij}$</code>, <code>$c_{ij}$</code> is nonzero only if <code>$Y_j \in N_i$</code>, and $N_i$ is the neighborhood of <code>$Y_i$</code>. <code>$c_{ij}$</code> is typically <code>$\lambda w_{ij}/w{i}$</code>.</p>
+
+<p>In this tutorial, we’ll fit one of the most simple (and flexible) CAR models. This model is a Gaussian Markov random field (GMRF) model proposed by Besag (we’ll refer to it as the Besag model). If you’re familiar with time series models, the most basic GMRF is the AR(1) process. In simple terms, a Gaussian random field is a random function over space with Gaussian probability distributions. A Gaussian <em>Markov</em> random field means that we are only interested in locations one “step” away from our current location &ndash; in this context of spatial data, this means that we’re interested in neighbors which directly share a boundary.</p>
+
+<p>The Besag model generally looks like a random effects model:</p>
+
+<p><code>$$
+\begin{aligned}
+log(\hat Y) &amp;=\mu+z_i^T\beta + b_i \\
+\mu &amp;= \text{global mean} \\
+z_i\beta_i &amp;= \text{vector of covariates &amp; corresponding coefficient} \\
+b_i &amp;= \text{spatial random effect}
+\end{aligned}
+$$</code></p>
+
+<p>When we define a prior distribution the default is often as follows:</p>
+
+<p><code>$$
+\mu \sim N(0, \frac{1}{100^2}) \\
+\beta \sim N(0, \frac{1}{100^2}) \\
+b_i \sim \text{some spatial dependency model}
+$$</code></p>
+
+<p>The Besag model considers <code>$b_i$</code> to be normally distributed with the mean being a function of the neighboring values, the set <code>$\delta i$</code> and the variance proportional to the number of neighbors, <code>$n_{\delta i}$</code>. In notation, it looks like this:</p>
+
+<p><code>$$
+\begin{aligned}
+b_i|b_{-i}, \tau_b &amp;\sim N(\frac{1}{n_{\delta i}}\sum_{j \in \delta i}b_j, \frac{1}{n_{\delta i} \tau_b}) \\
+\tau_b &amp;= \text{precision parameter}\\
+b_{-i} &amp;= (b_1, ... b_{i-1}, b_{i+1},...,b_n)^T
+\end{aligned}
+$$</code></p>
+
+<p>There are several natural progressions from the Besag model. For more accurate parameter estimates in the case of overdispersion (excessive variance) or unstructured errors (errors with no spatial autocorrelation), we can use the Besag-York-Mollíe model. Further, to account for spatial autocorrelation and overdispersion with two separate parameters, we can use the Leroux model. More information on each of these models can be found <a href="https://arxiv.org/pdf/1601.01180.pdf?fbclid=IwAR3dKo4uDNweY-otyPAMKnBa99RLt7sPMtEi-Kd2UIx8gkcpas6OuZ84jqs" target="_blank">here</a>.</p>
+
+<h1 id="data-and-packages">Data and packages</h1>
+
+<p>We&rsquo;ll fit these models using the <code>CARbayes</code> package in R. This package allows us to fit several univariate and multivariate CAR models and make inference in a Bayesian context using Markov chain Monte Carlo (MCMC) simulations. The package supports response variable from Gaussian, multinomial, Poison (or count), and zero-inflated Poisson distributions. Spatial autocorrelation is modeled using random effects in most cases, and each function in the package corresponds to a different prior or model type. Reacall we&rsquo;ll be using Besag priors, which assume a constant degree of spatial autocorrelation among the observations. The random effects are distributed normally around the mean of the neighbors and the variance is proportional to the size of the neighborhood. There is a lot of potential complexity built into the <code>CARbayes</code> package but for this tutorial, we’ll focus on simple application and interpretation!</p>
+
+<p>You&rsquo;ll need the packages below to run this tutorial on your own. This code chunk makes sure that all of the packages are installed and loaded!</p>
+
+<pre><code class="language-r">packages &lt;- c(&quot;CARBayes&quot;, &quot;sf&quot;, &quot;tidycensus&quot;, &quot;janitor&quot;, &quot;tidyverse&quot;, &quot;spData&quot;, &quot;spdep&quot;)
+
+miss_pkgs &lt;- packages[!packages %in% installed.packages()[,1]]
+
+if(length(miss_pkgs) &gt; 0){
+  install.packages(miss_pkgs)
+}
+
+invisible(lapply(packages, library, character.only = TRUE))
+
+rm(miss_pkgs, packages)
+</code></pre>
+
+<p>We will use a <a href="https://rdrr.io/cran/spData/man/columbus.html" target="_blank">shapefile of Columbus, OH neighborhoods</a> from the <code>spData</code> package. In total there are 49 neighborhoods and 22 variables and the data is from 1980.</p>
+
+<pre><code class="language-r">columbus &lt;- columbus_sf &lt;- st_read(system.file(&quot;shapes/columbus.shp&quot;, package=&quot;spData&quot;)[1])
+</code></pre>
+
+<p>It includes a variety of characteristics about the homes and people in each neighborhood.</p>
+
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>NEIG</td>
+<td>neighborhood id value (1-49)</td>
+</tr>
+
+<tr>
+<td>HOVAL</td>
+<td>median housing value (in $1,000)</td>
+</tr>
+
+<tr>
+<td>INC</td>
+<td>household income (in $1,000)</td>
+</tr>
+
+<tr>
+<td>CRIME</td>
+<td>number of residential burglaries and vehicle thefts per thousand households</td>
+</tr>
+
+<tr>
+<td>OPEN</td>
+<td>open space in neighborhood (mi^2)</td>
+</tr>
+
+<tr>
+<td>PLUMB</td>
+<td>percentage housing units without plumbing</td>
+</tr>
+
+<tr>
+<td>DISCBD</td>
+<td>distance to the central business district (miles)</td>
+</tr>
+</tbody>
+</table>
+
+<p>We will model the relationship between crime <code>CRIME</code> and home value <code>HOVAL</code>. In order to see whether or not spatial models are a necessary complexity, we will do some exploratory data analysis. If we do not see clear spatial patterns, we can use Generalized Linear Models and do not need to account for the spatial autocorrelation.</p>
+
+<p>The first step in our exploration is to plot maps of our variables of interest.</p>
+
+<pre><code class="language-r">map_theme &lt;- theme_minimal() + theme(text = element_text(color = &quot;#60717a&quot;), panel.grid = element_line(&quot;transparent&quot;), axis.text = element_blank()) 
+
+map_colors &lt;- scale_fill_gradientn(colors = c(&quot;#FFBD71&quot;, &quot;#FCA464&quot;, &quot;#F87D7B&quot;, &quot;#D04A73&quot;), na.value = &quot;#e1e5e8&quot;)
+
+ggplot(columbus) +
+  geom_sf(aes(fill = HOVAL)) +
+  map_theme +
+  map_colors +
+  labs(title = &quot;Median home values in Columbus, OH neighborhoods, 1980&quot;, fill = &quot;Home value in 1,000s&quot;)
+</code></pre>
+
+<p><img src="img/medianhomevals.png" alt="" /></p>
+
+<pre><code class="language-r">ggplot(columbus) +
+  geom_sf(aes(fill = CRIME)) +
+  map_theme +
+  map_colors +
+  labs(title = &quot;Residential crime in Columbus, OH neighborhoods, 1980&quot;, fill = &quot;Residential burglaries and vehicle \nthefts per thousand households&quot;)
+</code></pre>
+
+<p><img src="img/rescrime.png" alt="" /></p>
+
+<p>In these maps we can see two different important characteristics. First, it looks like there is spatial clustering for each of the variables individually. We will quantify this with Moran&rsquo;s I. Second, we see an inverse relationship between these two variables. In context, this means that high home values and low residential crime rates are often found in the same neighborhood.</p>
+
+<p>Before fitting a model, we will test the degree of spatial correlation with Moran&rsquo;s I. A priori we can see that the pattern is likely clustering rather than dispersion, so we&rsquo;ll conduct a one-tailed hypothesis test to see if the clustering is greater than random.</p>
+
+<p>$$H_O: \text{no spatial clustering} <br />
+H_A: \text{spatial clustering}$$</p>
+
+<pre><code class="language-r">col_sp &lt;- as(columbus, &quot;Spatial&quot;)
+col_nb &lt;- poly2nb(col_sp) # queen neighborhood
+col_listw &lt;- nb2listw(col_nb, style = &quot;B&quot;) # listw version of the neighborhood
+W &lt;- nb2mat(col_nb, style = &quot;B&quot;) # binary structure
+moran.mc(col_sp$HOVAL, listw = col_listw, nsim = 999, alternative = &quot;greater&quot;) # moran's I test HOVAL
+
+
+# Monte-Carlo simulation of Moran I
+# 
+# data:  col_sp$HOVAL 
+# weights: col_listw  
+# number of simulations + 1: 1000 
+# 
+# statistic = 0.22134, observed rank = 991, p-value = 0.009
+# alternative hypothesis: greater
+</code></pre>
+
+<p>For home value, the <code>moran.mc</code> functionr returns a test statistic of 0.22134 (moderate positive correlation) and based on our Monte Carlo simulations of possible random patterns we have a p-value of 0.008. We reject the null hypothesis because there is substantial evidence of spatial clustering. Now we will repeat this process for crime. If both of these show evidence of clustering then we know we should use spatial models.</p>
+
+<pre><code class="language-r">moran.mc(col_sp$CRIME, listw = col_listw, nsim = 999, alternative = &quot;greater&quot;) # moran's I test CRIME
+
+# Monte-Carlo simulation of Moran I
+# 
+# data:  col_sp$CRIME 
+# weights: col_listw  
+# number of simulations + 1: 1000 
+# 
+# statistic = 0.51546, observed rank = 1000, p-value = 0.001
+# alternative hypothesis: greater
+</code></pre>
+
+<p>For crime, the test statistic is 0.51546 (strong clustering) and based on our Monte Carlo simulations we have a p-value of 0.001. We reject the null hypothesis because there is substantial evidence of spatial relationships.</p>
+
+<h2 id="spatial-models">Spatial models</h2>
+
+<p>In order to better quantify the relationship between these two variables accounting for their spatial structure we will use the models proposed by Besag and implemented in <code>CARbayes</code>. In order to run these models, we will use the weights matrix <code>W</code> defined above and model <code>HOVAL</code> by <code>CRIME</code> from the <code>columbus</code> data. In this model we assume a fixed spatial dependence parameter $\rho = 1$ which simplifies the Leroux model to a Besag model (both can be fit using the same function). This model takes around 30 seconds to fit.</p>
+
+<pre><code class="language-r">model.hoval &lt;- CARBayes::S.CARleroux(HOVAL ~ CRIME, data = columbus, W = W, family = &quot;gaussian&quot;, burnin = 20000, n.sample = 100000, thin = 10)
+</code></pre>
+
+<pre><code class="language-r">model.hoval
+
+# #################
+# #### Model fitted
+# #################
+# Likelihood model - Gaussian (identity link function) 
+# Random effects model - Leroux CAR
+# Regression equation - HOVAL ~ CRIME
+# Number of missing observations - 0
+# 
+# ############
+# #### Results
+# ############
+# Posterior quantities and DIC
+# 
+#               Median     2.5%    97.5% n.effective Geweke.diag
+# (Intercept)  60.6232  50.5268  70.5352      7684.7        -0.6
+# CRIME        -0.6338  -0.8887  -0.3754      8000.0         0.6
+# nu2         226.4746 157.6672 346.1224      7527.6         1.1
+# tau2          0.0084   0.0021   0.0962      1261.3        -0.9
+# rho           0.3730   0.0170   0.9148      3293.0         1.0
+# 
+# DIC =  410.0037       p.d =  2.895076       LMPL =  -205.92 
+</code></pre>
+
+<p>In a Bayesian analysis we are simulating values from the posterior distribution of our parameters. If the middle 95% of distribution (the credible interval) does not cross zero then we can say it is a significant predictor. In this case we are looking at the <code>CRIME</code> parameter and we can see that the credible interval is below 0, meaning there is a significant negative or inverse relationship between crime and home value. The median value of the posterior distribution for <code>CRIME</code> is -0.715, meaning that for every crime recorded in that neighborhood the home value (in thousands) decreases by 0.715. Contextually, this makes sense. If we wanted to compare this model to others, we would use the DIC value, which is 97.4. We would select the model with the lower DIC, but this method is only applicable when the posterior distribution is approximately multivariate normal.</p>
+
+<p>We can extract all of the simulated $\beta_\text{crime}$ coefficients and plot them to see the distribution.</p>
+
+<pre><code class="language-r">cbus_sim &lt;- data_frame(beta_crime = as.vector(model.hoval$samples$beta[,2]))
+
+ggplot(cbus_sim, aes(x = beta_crime)) +
+  geom_density(fill = &quot;#FFBD71&quot;, color =&quot;#FFBD71&quot;) + 
+  geom_vline(xintercept = -0.8936, color = &quot;#F87D7B&quot;, size = 1.5) +
+  geom_vline(xintercept = -0.3690, color = &quot;#F87D7B&quot;, size = 1.5) + 
+  annotate(&quot;text&quot;, x = -0.65, y = 3.5, label = &quot;Credible interval&quot;, color = &quot;#F87D7B&quot;) + 
+  theme_minimal() +
+  theme(text = element_text(color = &quot;#60717a&quot;)) +
+  labs(title = &quot;Posterior distribution of the crime coefficient&quot;, x = &quot;Beta&quot;, y = &quot;Density&quot;)
+</code></pre>
+
+<p><img src="img/posterior.png" alt="" /></p>
+
+<p>This is a good visual representation of the credible interval; we can see that our coefficient will almost never be 0!</p>
+
+<h2 id="evaluating-the-spatial-pattern-of-residuals">Evaluating the spatial pattern of residuals</h2>
+
+<p>We also want to test to make sure our residuals aren&rsquo;t clustered. If they are, that means we are missing an important confounding variable. We can check for this clustering with the same Moran&rsquo;s I test on our residual.</p>
+
+<pre><code class="language-r">moran.mc(x = as.vector(model.hoval$residuals$response), listw = col_listw, nsim = 9999, alternative = &quot;greater&quot;)
+
+# Monte-Carlo simulation of Moran I
+# 
+# data:  as.vector(model.hoval$residuals$response) 
+# weights: col_listw  
+# number of simulations + 1: 10000 
+# 
+# statistic = 0.17135, observed rank = 9819, p-value = 0.0181
+# alternative hypothesis: greater
+</code></pre>
+
+<p>In this example we do see slight clustering in our residuals (I = 0.17), but that is likely because we only used one covariate to describe home patterns. In later iterations we would include more covariates in the model. We can also map the residuals to see where these clusters appear.</p>
+
+<pre><code class="language-r">columbus %&gt;%
+  mutate(resid = model.hoval$residuals$response) %&gt;%
+  ggplot(aes(fill = resid)) +
+  geom_sf() + 
+  map_theme +
+  map_colors +
+  labs(title = &quot;Residuals from the CAR model&quot;, subtitle = &quot;home value ~ crime&quot;, fill = &quot;Residual&quot;)
+</code></pre>
+
+<p><img src="img/CARresid.png" alt="" /></p>
+
+<p>In order to choose our next covariate, we can start by thinking about what kinds of variables might explain this pattern in the residual. One idea might be to include distance to the Central Business District!</p>
+
+<h1 id="discussion">Discussion</h1>
+
+<p>The model we’ve fit in this tutorial are a great place to start with Bayesian CAR models. The Besag model gives us fairly familiar results: coefficients which we can interpret just as we might in a more basic linear regression context. However, it gives more accurate predictions because it accounts for the underlying structure in the data. There are many layers of complexity we can add to make these models do more for us. Many of those improvements simply require adding new parameters or constraints to the Besag model!</p>
+
+<p>One limitation of these CAR models is that they are parametric. This could be a strength or a limitation depending on the data we’re interested in! The methods are also computationally expensive &ndash; when working with large amounts of data or covariates, a single model can take several minutes to run. This is less a weakness of the methodology and more a symptom of working with complex spatial data.</p>
+
+<p>As a package, <code>CARBayes</code> is incredibly versatile. There are several other models and corresponding functions in the package which we haven’t discussed, so if the models presented here don’t fit your needs, check out the <a href="https://cran.r-project.org/web/packages/CARBayes/vignettes/CARBayes.pdf" target="_blank">vignette</a>! If you&rsquo;ve got any other questions, feel free to reach out!</p>
+
+    </div>
+
+    
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_huba6bcb51793d92c8ee81118250c98ab3_10246921_250x250_fill_lanczos_center_2.png" itemprop="image" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="https://ravenmcknight.com/">Raven McKnight</a></h5>
+      <h6 class="card-subtitle">Statistician &amp; Data Scientist</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+          <li>
+            <a itemprop="sameAs" href="mailto:raven.i.mcknight@gmail.com" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/raven-mcknight-0703a5175/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/ravenmcknight" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+    
+
+    
+
+    
+<section id="comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ravenmcknight" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    <script id="dsq-count-scr" src="//ravenmcknight.disqus.com/count.js" async></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.9881d84a7dbd704179a08d7d1d079225.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    &copy; 2020 Raven McKnight &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
