@@ -4,7 +4,10 @@
 title: "Wannabe Geographer's Guide to Census Geography"
 summary: "My final project for 2D Design!"
 authors: []
-tags: []
+tags: 
+- design
+- geography
+- GIS
 categories: []
 date: 2019-11-02T14:47:00-05:00
 

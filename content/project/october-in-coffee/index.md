@@ -4,7 +4,9 @@
 title: "October in Coffee"
 summary: "A visualization of all the coffee I drank in October, 2019."
 authors: []
-tags: []
+tags: 
+- design
+- visualization
 categories: []
 date: 2019-11-05T21:19:01-06:00
 

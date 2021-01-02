@@ -4,7 +4,9 @@ subtitle: 'A tutorial on the basics of nonparametric probability density functio
 summary: A tutorial on the basics of nonparametric probability density function estimation.
 authors:
 - admin
-tags:
+tags: 
+- R
+- statistics
 categories: []
 date: "2020-12-27"
 lastmod: 

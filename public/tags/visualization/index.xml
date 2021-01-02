@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>visualization on Raven McKnight</title>
+    <link>https://ravenmcknight.com/tags/visualization/</link>
+    <description>Recent content in visualization on Raven McKnight</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Raven McKnight</copyright>
+    <lastBuildDate>Tue, 05 Nov 2019 21:19:01 -0600</lastBuildDate>
+    
+	    <atom:link href="https://ravenmcknight.com/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>October in Coffee</title>
+      <link>https://ravenmcknight.com/project/october-in-coffee/</link>
+      <pubDate>Tue, 05 Nov 2019 21:19:01 -0600</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/october-in-coffee/</guid>
+      <description>&lt;p&gt;I was recently inspired by Alyssa Fowers &lt;a href=&#34;https://twitter.com/alyssafowers/status/1178335347538825217&#34;&gt;visualization&lt;/a&gt; of her fall semester coffee consumption. I tracked my own coffee-drinking data for a month to create this plot!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/october-in-coffee/featured.png&#34;&gt;&lt;img src=&#34;featured.png&#34; alt=&#34;&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;It was fun to see where I drank abnormal amounts of coffee, or coffee at abnormal times &amp;ndash; like the office hours I hold on Mondays at 7pm or during my trip to DC towards the end of the month. I was also surprised by how much the time of my first coffee varied &amp;ndash; I definitely expected to see a stronger &amp;ldquo;6am coffee&amp;rdquo; pattern.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;I created this plot with &lt;code&gt;ggplot2&lt;/code&gt;, Illustrator, and a Gilmore Girls reference for good measure. What would a coffee viz be without Lorelai, after all?&lt;/p&gt;
+&lt;p&gt;Code for the plot is on my &lt;a href=&#34;https://github.com/ravenmcknight/visualization/tree/master/october_in_coffee&#34;&gt;Github&lt;/a&gt;. Here&amp;rsquo;s to sleeping more in November!&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Intent in Acquisition</title>
+      <link>https://ravenmcknight.com/project/intent-in-acquisition/</link>
+      <pubDate>Fri, 01 Nov 2019 08:25:37 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/intent-in-acquisition/</guid>
+      <description>&lt;p&gt;This is the app I created in collaboration with the National Gallery of Art. I would consider this app in the &amp;ldquo;prototype&amp;rdquo; stage &amp;ndash; my goal was to illustrate the types of questions that can be answered with the data the Gallery already collects. Check out the app &lt;a href=&#34;https://raven-mcknight.shinyapps.io/intent-in-acquisition/&#34;&gt;here&lt;/a&gt;, or hear me talk more about it &lt;a href=&#34;https://www.youtube.com/watch?v=ewm4cL3vn6k&amp;amp;&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

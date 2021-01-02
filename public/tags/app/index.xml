@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>app on Raven McKnight</title>
+    <link>https://ravenmcknight.com/tags/app/</link>
+    <description>Recent content in app on Raven McKnight</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Raven McKnight</copyright>
+    <lastBuildDate>Fri, 01 Nov 2019 08:25:37 -0500</lastBuildDate>
+    
+	    <atom:link href="https://ravenmcknight.com/tags/app/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Intent in Acquisition</title>
+      <link>https://ravenmcknight.com/project/intent-in-acquisition/</link>
+      <pubDate>Fri, 01 Nov 2019 08:25:37 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/intent-in-acquisition/</guid>
+      <description>&lt;p&gt;This is the app I created in collaboration with the National Gallery of Art. I would consider this app in the &amp;ldquo;prototype&amp;rdquo; stage &amp;ndash; my goal was to illustrate the types of questions that can be answered with the data the Gallery already collects. Check out the app &lt;a href=&#34;https://raven-mcknight.shinyapps.io/intent-in-acquisition/&#34;&gt;here&lt;/a&gt;, or hear me talk more about it &lt;a href=&#34;https://www.youtube.com/watch?v=ewm4cL3vn6k&amp;amp;&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

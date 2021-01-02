@@ -4,7 +4,9 @@
 title: "Saint Paul 3K"
 summary: "A geography class project supporting Saint Paul City Council"
 authors: []
-tags: []
+tags: 
+- GIS
+- geography
 categories: []
 date: 2019-11-02T14:47:00-05:00
 

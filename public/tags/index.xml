@@ -7,9 +7,100 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year} Raven McKnight</copyright>
+    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://ravenmcknight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R</title>
+      <link>https://ravenmcknight.com/tags/r/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>statistics</title>
+      <link>https://ravenmcknight.com/tags/statistics/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/statistics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>design</title>
+      <link>https://ravenmcknight.com/tags/design/</link>
+      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>geography</title>
+      <link>https://ravenmcknight.com/tags/geography/</link>
+      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/geography/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>visualization</title>
+      <link>https://ravenmcknight.com/tags/visualization/</link>
+      <pubDate>Tue, 05 Nov 2019 21:19:01 -0600</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/visualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GIS</title>
+      <link>https://ravenmcknight.com/tags/gis/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/gis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>app</title>
+      <link>https://ravenmcknight.com/tags/app/</link>
+      <pubDate>Fri, 01 Nov 2019 08:25:37 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/app/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shiny</title>
+      <link>https://ravenmcknight.com/tags/shiny/</link>
+      <pubDate>Fri, 01 Nov 2019 08:25:37 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/shiny/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bayesian</title>
+      <link>https://ravenmcknight.com/tags/bayesian/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/bayesian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spatial</title>
+      <link>https://ravenmcknight.com/tags/spatial/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/tags/spatial/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

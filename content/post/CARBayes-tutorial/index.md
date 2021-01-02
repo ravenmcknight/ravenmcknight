@@ -4,6 +4,11 @@ author: "Katie Jolly and Raven McKnight"
 date: "2019-05-02"
 subtitle: "A tutorial for fitting conditional autoregressive models in R using the CARBayes package."
 summary: A tutorial for fitting conditional autoregressive models in R using the CARBayes package.
+tags:
+- R
+- statistics
+- Bayesian
+- spatial
 authors:
 - admin
 draft: false

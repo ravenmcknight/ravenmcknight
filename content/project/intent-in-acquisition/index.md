@@ -4,7 +4,11 @@
 title: "Intent in Acquisition"
 summary: "A robust Shiny app developed to explore the National Gallery of Art's collection data."
 authors: []
-tags: []
+tags: 
+- R
+- Shiny
+- app
+- visualization
 categories: []
 date: 2019-11-01T08:25:37-05:00
 

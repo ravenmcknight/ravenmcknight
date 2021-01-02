@@ -23,8 +23,33 @@
   </url>
   
   <url>
+    <loc>https://ravenmcknight.com/tags/r/</loc>
+    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ravenmcknight.com/</loc>
     <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ravenmcknight.com/tags/statistics/</loc>
+    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ravenmcknight.com/tags/</loc>
+    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ravenmcknight.com/tags/design/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ravenmcknight.com/tags/geography/</loc>
+    <lastmod>2020-12-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -43,7 +68,17 @@
   </url>
   
   <url>
+    <loc>https://ravenmcknight.com/tags/visualization/</loc>
+    <lastmod>2019-11-05T21:19:01-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ravenmcknight.com/project/alaska-typeface/</loc>
+    <lastmod>2019-11-02T14:47:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ravenmcknight.com/tags/gis/</loc>
     <lastmod>2019-11-02T14:47:00-05:00</lastmod>
   </url>
   
@@ -63,12 +98,32 @@
   </url>
   
   <url>
+    <loc>https://ravenmcknight.com/tags/app/</loc>
+    <lastmod>2019-11-01T08:25:37-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ravenmcknight.com/project/intent-in-acquisition/</loc>
     <lastmod>2019-11-01T08:25:37-05:00</lastmod>
   </url>
   
   <url>
+    <loc>https://ravenmcknight.com/tags/shiny/</loc>
+    <lastmod>2019-11-01T08:25:37-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ravenmcknight.com/tags/bayesian/</loc>
+    <lastmod>2019-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ravenmcknight.com/post/carbayes-tutorial/</loc>
+    <lastmod>2019-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ravenmcknight.com/tags/spatial/</loc>
     <lastmod>2019-05-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -86,10 +141,6 @@
   
   <url>
     <loc>https://ravenmcknight.com/talk/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ravenmcknight.com/tags/</loc>
   </url>
   
 </urlset>

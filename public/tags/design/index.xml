@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>design on Raven McKnight</title>
+    <link>https://ravenmcknight.com/tags/design/</link>
+    <description>Recent content in design on Raven McKnight</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; {year} Raven McKnight</copyright>
+    <lastBuildDate>Fri, 04 Dec 2020 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://ravenmcknight.com/tags/design/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Meandering Minneapolis</title>
+      <link>https://ravenmcknight.com/project/cultural-atlas/</link>
+      <pubDate>Fri, 04 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/cultural-atlas/</guid>
+      <description>&lt;p&gt;In the spring of 2020, I got to take a class called Cultural Atlas Production at Macalester. Inspired by cartographers like Rebecca Solnit, and Macalester&amp;rsquo;s &lt;a href=&#34;https://issuu.com/maccarto/docs/curiouscity&#34;&gt;2019 cultural atlas of Saint Paul&lt;/a&gt;, the class created a cultural atlas of Minneapolis!&lt;/p&gt;
+&lt;p&gt;My spread focused on The Amazon Bookstore Cooperative, the oldest lesbian bookstore in the country. It existed in Minneapolis from the early 1970s until it closed in 2012.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;mcknight-spread.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Like so many things, this project was affected by COVID-19 when lockdown began. Despite those challenges, I&amp;rsquo;m so impressed with everything my classmates created. You can see the whole cultural atlas and read more about the project &lt;a href=&#34;https://www.macalester.edu/news/2020/08/meandering-minneapolis/&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>October in Coffee</title>
+      <link>https://ravenmcknight.com/project/october-in-coffee/</link>
+      <pubDate>Tue, 05 Nov 2019 21:19:01 -0600</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/october-in-coffee/</guid>
+      <description>&lt;p&gt;I was recently inspired by Alyssa Fowers &lt;a href=&#34;https://twitter.com/alyssafowers/status/1178335347538825217&#34;&gt;visualization&lt;/a&gt; of her fall semester coffee consumption. I tracked my own coffee-drinking data for a month to create this plot!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/october-in-coffee/featured.png&#34;&gt;&lt;img src=&#34;featured.png&#34; alt=&#34;&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;It was fun to see where I drank abnormal amounts of coffee, or coffee at abnormal times &amp;ndash; like the office hours I hold on Mondays at 7pm or during my trip to DC towards the end of the month. I was also surprised by how much the time of my first coffee varied &amp;ndash; I definitely expected to see a stronger &amp;ldquo;6am coffee&amp;rdquo; pattern.&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;I created this plot with &lt;code&gt;ggplot2&lt;/code&gt;, Illustrator, and a Gilmore Girls reference for good measure. What would a coffee viz be without Lorelai, after all?&lt;/p&gt;
+&lt;p&gt;Code for the plot is on my &lt;a href=&#34;https://github.com/ravenmcknight/visualization/tree/master/october_in_coffee&#34;&gt;Github&lt;/a&gt;. Here&amp;rsquo;s to sleeping more in November!&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Alaska Typeface</title>
+      <link>https://ravenmcknight.com/project/alaska-typeface/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/alaska-typeface/</guid>
+      <description>&lt;p&gt;I designed this font from scratch in my 2D Design class by drawing, scanning, and digitizing each letter. It was a ton of fun, and a great opportunity to design a poster for one of my favorite musicians &amp;amp; songs!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/alaska-typeface/full.png&#34;&gt;&lt;img src=&#34;full.png&#34; alt=&#34;&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tossed Patterns</title>
+      <link>https://ravenmcknight.com/project/tossed-patterns/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/tossed-patterns/</guid>
+      <description>&lt;p&gt;I drew these patterns in Illustrator using a Wacom tablet. This was a really fun blend of doodling and digital art!&lt;/p&gt;
+&lt;p&gt;I was inspired by dark, earthtone paisleys I saw on clothing growing up for my first pattern.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/tossed-patterns/paisley.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I reused some of the same elements in my second pattern, and tried to incorporate each of the plants I have in my bedroom right now!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/project/tossed-patterns/pattern.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Wannabe Geographer&#39;s Guide to Census Geography</title>
+      <link>https://ravenmcknight.com/project/census-geog-guide/</link>
+      <pubDate>Sat, 02 Nov 2019 14:47:00 -0500</pubDate>
+      
+      <guid>https://ravenmcknight.com/project/census-geog-guide/</guid>
+      <description>&lt;p&gt;Our final project in my 2D Design class was called &amp;ldquo;Teach Me&amp;rdquo; &amp;ndash; we were meant to design something educational. My mind went straight to census geography! I designed this guide to be printed as a zine, but you can view a pdf of the pages &lt;a href=&#34;https://www.ravenmcknight.com/files/census-geog-guide.pdf&#34;&gt;here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ravenmcknight.com/files/census-geog-guide.pdf&#34;&gt;&lt;img src=&#34;featured.png&#34; alt=&#34;&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I covered five of the most common geographies, and focused on the county I live in right now. I also highlighted my favorite coffee shop to give a sense of scale. I even used the typeface I designed earlier in the semester! This was a super fun project to end the semester with :-)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

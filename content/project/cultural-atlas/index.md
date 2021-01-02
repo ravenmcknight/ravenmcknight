@@ -4,7 +4,9 @@
 title: "Meandering Minneapolis"
 summary: "A Cultural Atlas of Minneapolis!"
 authors: []
-tags: []
+tags: 
+- design
+- geography
 categories: []
 date: 2020-12-04
 

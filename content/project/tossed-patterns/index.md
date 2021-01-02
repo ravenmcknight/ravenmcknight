@@ -4,7 +4,8 @@
 title: "Tossed Patterns"
 summary: "Recently, I learned to create tossed patterns using Adobe Illustrator."
 authors: []
-tags: []
+tags: 
+- design
 categories: []
 date: 2019-11-02T14:47:00-05:00
 
