@@ -32,7 +32,7 @@ interests:
 education:
   courses:
   - course: BA in Applied Math & Statistics
-    institution: Bayesian Statistics, Mathematical Statistics, Correlated Data, Statistical Machine Learning, Computational Linear Algebra, Probability, Urban GIS, 2D Design, Cultural Atlas Production
+    institution: Bayesian Statistics, Mathematical Statistics, Statistical Machine Learning, Correlated Data, Computational Linear Algebra, Probability, Urban GIS, 2D Design, Cultural Atlas Production
     year: 2020
   
 
