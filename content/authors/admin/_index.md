@@ -10,24 +10,22 @@ authors:
 superuser: true
 
 # Role/position
-role: Statistician & Data Scientist
+role: Associate Data Scientist
 # Organizations/Affiliations
 organizations:
-- name: Metro Transit
+- name: Metropolitan Council of the Twin Cities
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
 bio: 
 
 interests:
+- Urban design & planning
+- Public health & social determinants of health
 - Spatial statistics & geography
-- Public transit planning & analysis
-- Hierarchical Bayesian modeling
-- Public health & disease risk modeling
-- Data visualization & cartography
-- High-dimensional, correlated data
+- Data visualization, cartography, & data journalism
 - Reproducible research
-- Equity & accessibility 
+- Equity & accessibility
 
 education:
   courses:
@@ -74,9 +72,9 @@ email: ""
 
 
 
-I'm a recent graduate of [Macalester College](https://www.macalester.edu/) where I studied statistics with minors in geography and creative writing. Right now, I work at [Metro Transit](https://www.metrotransit.org/home) as a Research and Analytics data science intern. At this position, I got interested in transit demand modeling and completed a statistics honors thesis on fitting hierarchical spatial Bayesian models to Twin Cities bus ridership. I'm interested in continuing work like this and in topics like spatial statistics, geographic data science, and reproducible research. 
+I'm a recent graduate of [Macalester College](https://www.macalester.edu/) where I studied statistics with minors in geography and creative writing. Right now, I work at the [Metropolitan Council](https://www.metrocouncil.org) as an Associate Data Scientist. My work involves using location-based services to estimate park and trail visitation across the state. Previously, I interned at [Metro Transit](https://www.metrotransit.org/home) where I fit hierarchical spatial Bayesian models of Twin Cities bus ridership. 
 
-Outside of work, I love applying data science skills to new projects, like the [National Gallery of Art's](https://www.nga.gov/) first [datathon](https://www.nga.gov/audio-video/audio/datathon.html). My team explored gender diversity in the Gallery's collection and presented to Gallery curators and staff! When I'm not thinking about statistics, I love to read and write, knit, and rock climb. 
+Outside of work, I love applying data science skills to new projects, like the [National Gallery of Art's](https://www.nga.gov/) first [datathon](https://www.nga.gov/audio-video/audio/datathon.html). My team explored gender diversity in the Gallery's collection and presented to Gallery curators and staff. When I'm not thinking about statistics, I love to write fiction, read, and get to know Minnesota's parks and trails better! 
 
 
 
